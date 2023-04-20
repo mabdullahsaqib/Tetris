@@ -39,7 +39,7 @@ inline void Well::Board(RenderWindow& window)
 	bg.setFillColor(Color(30, 30, 30));
 
 	RectangleShape Grid;
-	Grid.setSize(Vector2f(530.0f, 805.0f));
+	Grid.setSize(Vector2f(530.0f, 809.25f));
 	Grid.setPosition(0.0f, 5.0f);
 	Grid.setFillColor(Color(255, 255, 255));
 	Texture grid;
@@ -71,7 +71,6 @@ inline void Well::Board(RenderWindow& window)
 				window.close();
 
 		}
-		//if (switchtime > 0.5)
 		if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
 		{
 			if (x < 466)
@@ -96,10 +95,6 @@ inline void Well::Board(RenderWindow& window)
 			if (v < 640)
 			{
 				v += 40.5f;
-				v -= 0.2f;
-
-				if (v > 400)
-					v -= 0.1f;
 			}
 			switchtime = 0;
 		}

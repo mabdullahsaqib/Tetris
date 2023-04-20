@@ -23,7 +23,7 @@
     <ClInclude Include="Well.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tetrimino.h">
+    <ClInclude Include="Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

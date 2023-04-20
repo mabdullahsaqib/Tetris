@@ -39,17 +39,25 @@ inline void Well::Board(RenderWindow& window)
 	bg.setFillColor(Color(30, 30, 30));
 
 	RectangleShape Grid;
-	Grid.setSize(Vector2f(520.0f, 800.0f));
+	Grid.setSize(Vector2f(515.0f, 800.0f));
 	Grid.setPosition(0.0f, 5.0f);
 	Grid.setFillColor(Color(255, 255, 255));
 	Texture grid;
 	grid.loadFromFile("Textures/Grid 10x20.png");
 	Grid.setTexture(&grid);
 
-	RectangleShape firstshape;
-	firstshape.setSize(Vector2f(45.0f, 33.0f));
-	firstshape.setPosition(3.0f, 8.0f);
-	firstshape.setFillColor(Color::Cyan);
+	//RectangleShape firstshape;
+	//firstshape.setSize(Vector2f(45.0f, 33.0f));
+	//firstshape.setPosition(3.0f, 8.0f);
+	//firstshape.setFillColor(Color::Cyan);
+
+	Texture blue;
+	blue.loadFromFile("Textures/Tetromino_I.png");
+
+	Sprite rectangleshape;
+	rectangleshape.setScale(Vector2f(0.7f, 0.57f));
+	rectangleshape.setTexture(blue);
+	rectangleshape.setPosition(3.0f, 8.0f);
 
     float x = 3.0f;
 	float v = 8.0f;
@@ -70,7 +78,7 @@ inline void Well::Board(RenderWindow& window)
 		}
 		if (switchtime > 0.5)
 		{
-			firstshape.setPosition(x, v);
+			rectangleshape.setPosition(x, v);
 			x += y;
 			y -= 0.3f;
 			if (x > 519)
@@ -86,8 +94,8 @@ inline void Well::Board(RenderWindow& window)
 		}
 		window.clear();
 		window.draw(bg);
+		window.draw(rectangleshape);
 		window.draw(Grid);
-		window.draw(firstshape);
 		window.display();
 	}
 }

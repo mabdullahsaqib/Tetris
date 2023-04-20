@@ -76,20 +76,38 @@ inline void Well::Board(RenderWindow& window)
 				window.close();
 
 		}
-		if (switchtime > 0.5)
+		//if (switchtime > 0.5)
+		if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
+		{
+			if (x < 466)
+			{
+				x += y;
+				y -= 0.3f;
+				rectangleshape.setPosition(x, v);
+			}
+			switchtime = 0;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
+		{
+			if (x >56)
+			{
+				x -= y;
+				y += 0.3f;
+				rectangleshape.setPosition(x, v);
+			}
+			switchtime = 0;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.2)
 		{
 			rectangleshape.setPosition(x, v);
-			x += y;
-			y -= 0.3f;
-			if (x > 519)
+			if (v < 640)
 			{
-				x = 3.0f;
 				v += 40.5f;
-				y = 53.0f;
 				v -= 0.2f;
+
+				if (v > 400)
+					v -= 0.1f;
 			}
-			if (v > 400)
-				v -= 0.1f;
 			switchtime = 0;
 		}
 		window.clear();

@@ -47,7 +47,7 @@ inline void Well::Board(RenderWindow& window)
 
 	Sprite blue_tetromino[4];
 
-	//	Sprite blue_tetromino;
+    //	Sprite blue_tetromino;
 	//blue_tetromino.setScale(Vector2f(0.55f, 0.5f));
 	//blue_tetromino.setTexture(blue);
 	//blue_tetromino.setPosition(3.0f, 8.0f);

@@ -94,8 +94,8 @@ inline void Well::Board(RenderWindow& window)
 				{
 					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					blue_tetromino[i].setTexture(blue);
-					blue_tetromino[i].setPosition(x, z);
-					z += 40.5;
+					blue_tetromino[i].setPosition(x,z);
+					z += 40.5f;
 				}
 				z = y;
 			}
@@ -128,7 +128,7 @@ inline void Well::Board(RenderWindow& window)
 					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					blue_tetromino[i].setTexture(blue);
 					blue_tetromino[i].setPosition(x, z);
-					z += 40.5;
+					z += 40.5f;
 				}
 				z = y;
 			}
@@ -145,7 +145,7 @@ inline void Well::Board(RenderWindow& window)
 					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					blue_tetromino[i].setTexture(blue);
 					blue_tetromino[i].setPosition(x, z);
-					z += 40.5;
+					z += 40.5f;
 				}
 				z = y;
 			}

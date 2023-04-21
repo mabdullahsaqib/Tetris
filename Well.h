@@ -50,6 +50,18 @@ inline void Well::Board(RenderWindow& window)
 	blue_tetromino.setTexture(blue);
 	blue_tetromino.setPosition(3.0f, 8.0f);
 
+    //	Sprite blue_tetromino;
+	//blue_tetromino.setScale(Vector2f(0.55f, 0.5f));
+	//blue_tetromino.setTexture(blue);
+	//blue_tetromino.setPosition(3.0f, 8.0f);
+
+	for (int i = 0,float j= 8.0 ; i < 4; i++, j+=40.5)
+	{
+		blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+		blue_tetromino[i].setTexture(blue);
+		blue_tetromino[i].setPosition(3.0, j);
+	}
+
 	Clock clock;
     float x = 3.0f;
 	float y = 8.0f;
@@ -74,7 +86,14 @@ inline void Well::Board(RenderWindow& window)
 			if (x < 466)
 			{
 				x += v;
-				blue_tetromino.setPosition(x, y);
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x,z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			switchtime = 0;
 		}
@@ -92,7 +111,15 @@ inline void Well::Board(RenderWindow& window)
 			if (y < 640)
 			{
 				y += 40.5f;
-			blue_tetromino.setPosition(x, y);
+				z = y;
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x, z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			switchtime = 0;
 		}
@@ -101,7 +128,15 @@ inline void Well::Board(RenderWindow& window)
 			if (y < 640)
 			{
 				y += 40.5f;
-				blue_tetromino.setPosition(x, y);
+				z = y;
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x, z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			elaspedtime = 0.0;
 		}

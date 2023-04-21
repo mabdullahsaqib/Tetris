@@ -43,17 +43,27 @@ inline void Well::Board(RenderWindow& window)
 
 	//Sets the blue that is I Shaped Tetromino
 	Texture blue;
-	blue.loadFromFile("Textures/Tetromino_I.png");
+	blue.loadFromFile("Textures/Tetromino_blue_block.png");
 
-	Sprite blue_tetromino;
-	blue_tetromino.setScale(Vector2f(0.7f, 0.57f));
-	blue_tetromino.setTexture(blue);
-	blue_tetromino.setPosition(3.0f, 8.0f);
+	Sprite blue_tetromino[4];
+
+    //	Sprite blue_tetromino;
+	//blue_tetromino.setScale(Vector2f(0.55f, 0.5f));
+	//blue_tetromino.setTexture(blue);
+	//blue_tetromino.setPosition(3.0f, 8.0f);
+
+	for (int i = 0,float j= 8.0 ; i < 4; i++, j+=40.5)
+	{
+		blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+		blue_tetromino[i].setTexture(blue);
+		blue_tetromino[i].setPosition(3.0, j);
+	}
 
 	Clock clock;
     float x = 3.0f;
 	float y = 8.0f;
 	float v = 53.0f;
+	float z = 8.0f;
 	float deltatime;
 	float switchtime = 0.0;
 	float elaspedtime = 0.0;
@@ -65,8 +75,14 @@ inline void Well::Board(RenderWindow& window)
 		elaspedtime += deltatime;
 		while (window.pollEvent(e))
 		{
-			if (e.type == Event::Closed)
+			switch (e.type)
+			{
+			case Event::Closed:
 				window.close();
+				break;
+
+
+			}
 
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
@@ -74,7 +90,14 @@ inline void Well::Board(RenderWindow& window)
 			if (x < 466)
 			{
 				x += v;
-				blue_tetromino.setPosition(x, y);
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x,z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			switchtime = 0;
 		}
@@ -83,32 +106,58 @@ inline void Well::Board(RenderWindow& window)
 			if (x >50)
 			{
 				x -= v;
-				blue_tetromino.setPosition(x, y);
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x, z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			switchtime = 0;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.2)
 		{
-			if (y < 640)
+			if (y < 760)
 			{
 				y += 40.5f;
-			blue_tetromino.setPosition(x, y);
+				z = y;
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x, z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			switchtime = 0;
 		}
 		if (elaspedtime > 1.0)
 		{
-			if (y < 640)
+			if (y < 760)
 			{
 				y += 40.5f;
-				blue_tetromino.setPosition(x, y);
+				z = y;
+				for (int i = 0; i < 4; i++)
+				{
+					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					blue_tetromino[i].setTexture(blue);
+					blue_tetromino[i].setPosition(x, z);
+					z += 40.5;
+				}
+				z = y;
 			}
 			elaspedtime = 0.0;
 		}
 
 		window.clear();
 		window.draw(bg);
-		window.draw(blue_tetromino);
+		for (int i = 0; i < 4; i++)
+		{
+			window.draw(blue_tetromino[i]);
+		}
 		window.draw(Grid);
 		window.display();
 	}

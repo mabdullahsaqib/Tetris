@@ -11,8 +11,8 @@ private:
 	int tetromino = 1;
 public:
 	int GetTetromino();
-	void Rotation(RenderWindow& window,Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v);
-	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime);
+	void Rotation(RenderWindow& window,Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid);
+	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid);
 };
 
 int Tetromino_Blue::GetTetromino()
@@ -20,7 +20,7 @@ int Tetromino_Blue::GetTetromino()
 	return tetromino;
 }
 
-void Tetromino_Blue::Rotation(RenderWindow& window, Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v)
+void Tetromino_Blue::Rotation(RenderWindow& window, Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key::Up))
 	{
@@ -63,10 +63,18 @@ void Tetromino_Blue::Rotation(RenderWindow& window, Sprite tetromino[],Texture b
 		else
 			rotation = 0;
 	}
+	window.clear();
+	window.draw(bg);
+	for (int i = 0; i < 4; i++)
+	{
+		window.draw(tetromino[i]);
+	}
+	window.draw(Grid);
+	window.display();
 	return;
 }
 
-void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime)
+void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid)
 {
 
 	if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
@@ -216,5 +224,14 @@ void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Tex
 		}
 		elaspedtime = 0.0;
 	}
+	window.clear();
+	window.draw(bg);
+	for (int i = 0; i < 4; i++)
+	{
+		window.draw(tetromino[i]);
+	}
+	window.draw(Grid);
+	window.display();
+	return;
 	return;
 }

@@ -11,7 +11,6 @@ private:
 public:
 	Well();
 	void Board(RenderWindow& window);
-	void Draw(RenderWindow& window, Sprite tetromino[], RectangleShape& bg, RectangleShape& Grid);
 };
 
 Well::Well()
@@ -122,7 +121,7 @@ void Well::Board(RenderWindow& window)
 				else
 					isrotated = 0;
 			}*/
-			blue_t.Rotation(window, blue_tetromino, blue, isrotated, x, y, z, v);
+			blue_t.Rotation(window, blue_tetromino, blue, isrotated, x, y, z, v, bg, Grid);
 		}
 		/*
 		if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
@@ -272,28 +271,15 @@ void Well::Board(RenderWindow& window)
 			}
 			elaspedtime = 0.0;
 		}*/
-		blue_t.MoveTetromino(window, blue_tetromino, blue, isrotated, x, y, z, v,switchtime, elaspedtime);
+		blue_t.MoveTetromino(window, blue_tetromino, blue, isrotated, x, y, z, v,switchtime, elaspedtime, bg, Grid);
 
-		/*window.clear();
-		window.draw(bg);
-		for (int i = 0; i < 4; i++)
-		{
-			window.draw(blue_tetromino[i]);
-		}
-		window.draw(Grid);
-		window.display();*/
+		//window.clear();
+		//window.draw(bg);
+		//for (int i = 0; i < 4; i++)
+		//{
+		//	window.draw(blue_tetromino[i]);
+		//}
+		//window.draw(Grid);
+		//window.display();
 	}
-}
-
-inline void Well::Draw(RenderWindow& window, Sprite tetromino[], RectangleShape& bg, RectangleShape& Grid)
-{
-	window.clear();
-	window.draw(bg);
-	for (int i = 0; i < 4; i++)
-	{
-		window.draw(tetromino[i]);
-	}
-	window.draw(Grid);
-	window.display();
-
 }

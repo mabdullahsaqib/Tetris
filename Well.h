@@ -1,16 +1,17 @@
 #pragma once
 #include<iostream>
 #include<SFML/Graphics.hpp>
+#include"Tetromino_Blue.h"
 using namespace sf;
 
 class Well
 {
+private:
+	int well[20][10];
 public:
 	Well();
 	void Board(RenderWindow& window);
-
-private:
-	int well[20][10];
+	void Draw(RenderWindow& window, Sprite tetromino[], RectangleShape& bg, RectangleShape& Grid);
 };
 
 Well::Well()
@@ -24,7 +25,7 @@ Well::Well()
 	}
 }
 
-inline void Well::Board(RenderWindow& window)
+void Well::Board(RenderWindow& window)
 {
 	//Sets the background for the window
 	RectangleShape bg;
@@ -52,6 +53,8 @@ inline void Well::Board(RenderWindow& window)
 		blue_tetromino[i].setTexture(blue);
 		blue_tetromino[i].setPosition(3.0, j);
 	}
+	
+	Tetromino_Blue blue_t;
 
 	Clock clock;
 	float x = 3.0f;
@@ -61,6 +64,7 @@ inline void Well::Board(RenderWindow& window)
 	float deltatime;
 	float switchtime = 0.0;
 	float elaspedtime = 0.0;
+	bool isrotated = 0;
 	while (window.isOpen())
 	{
 		Event e;
@@ -77,82 +81,219 @@ inline void Well::Board(RenderWindow& window)
 
 
 			}
-
+			/*if (Keyboard::isKeyPressed(Keyboard::Key::Up))
+			{
+				isrotated = !isrotated;
+				if (isrotated == 0 && y < 670)
+				{
+					if (z < 670)
+					{
+						for (int i = 0; i < 4; i++)
+						{
+							blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+							blue_tetromino[i].setTexture(blue);
+							blue_tetromino[i].setPosition(x, z);
+							z += 40.5f;
+						}
+						z = y;
+					}
+					else
+						isrotated = 1;
+				}
+				else
+					isrotated = 1;
+				if (isrotated == 1 && x < 350)
+				{
+					z = x;
+					if (z < 350)
+					{
+						for (int i = 0; i < 4; i++)
+						{
+							blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+							blue_tetromino[i].setTexture(blue);
+							blue_tetromino[i].setPosition(z, y);
+							z += v;
+						}
+					}
+					else
+						isrotated = 0;
+					z = y;
+				}
+				else
+					isrotated = 0;
+			}*/
+			blue_t.Rotation(window, blue_tetromino, blue, isrotated, x, y, z, v);
 		}
+		/*
 		if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
 		{
-			if (x < 466)
+			if (isrotated == 0)
 			{
-				x += v;
-				for (int i = 0; i < 4; i++)
+				if (x < 466)
 				{
-					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-					blue_tetromino[i].setTexture(blue);
-					blue_tetromino[i].setPosition(x,z);
-					z += 40.5f;
+					x += v;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, z);
+						z += 40.5f;
+					}
+					z = y;
 				}
-				z = y;
+			}
+			else if(isrotated == 1)
+			{
+				if (x < 300)
+				{
+					x += v;
+					z = x;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, y);
+						x += v;
+					}
+					x = z;
+					z = y;
+				}
+
 			}
 			switchtime = 0;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
 		{
-			if (x > 50)
+			if (isrotated == 0)
 			{
-				x -= v;
-				for (int i = 0; i < 4; i++)
+				if (x > 50)
 				{
-					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-					blue_tetromino[i].setTexture(blue);
-					blue_tetromino[i].setPosition(x, z);
-					z += 40.5f;
+					x -= v;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, z);
+						z += 40.5f;
+					}
+					z = y;
 				}
-				z = y;
+			}
+			else if (isrotated == 1)
+			{
+				if (x > 50)
+				{
+					x -= v;
+					z = x;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, y);
+						x += v;
+					}
+					x = z;
+					z = y;
+				}
 			}
 			switchtime = 0;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.2)
 		{
-			if (y < 760)
+			if (isrotated == 0)
 			{
-				y += 40.5f;
-				z = y;
-				for (int i = 0; i < 4; i++)
+				if (y < 640)
 				{
-					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-					blue_tetromino[i].setTexture(blue);
-					blue_tetromino[i].setPosition(x, z);
-					z += 40.5f;
+					y += 40.5f;
+					z = y;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, z);
+						z += 40.5f;
+					}
+					z = y;
 				}
-				z = y;
+			}
+			else if (isrotated == 1)
+			{
+				if (y < 760)
+				{
+					y += 40.5f;
+					z = x;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, y);
+						x += v;
+					}
+					x = z;
+					z = y;
+				}
 			}
 			switchtime = 0;
 		}
-		if (elaspedtime > 1.0)
+		else if (elaspedtime > 1.0)
 		{
-			if (y < 760)
+			if (isrotated == 0)
 			{
-				y += 40.5f;
-				z = y;
-				for (int i = 0; i < 4; i++)
+				if (y < 640)
 				{
-					blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-					blue_tetromino[i].setTexture(blue);
-					blue_tetromino[i].setPosition(x, z);
-					z += 40.5f;
+					y += 40.5f;
+					z = y;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, z);
+						z += 40.5f;
+					}
+					z = y;
 				}
-				z = y;
+			}
+			else if (isrotated == 1)
+			{
+				if (y < 760)
+				{
+					y += 40.5f;
+					z = x;
+					for (int i = 0; i < 4; i++)
+					{
+						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+						blue_tetromino[i].setTexture(blue);
+						blue_tetromino[i].setPosition(x, y);
+						x += v;
+					}
+					x = z;
+					z = y;
+				}
 			}
 			elaspedtime = 0.0;
-		}
+		}*/
+		blue_t.MoveTetromino(window, blue_tetromino, blue, isrotated, x, y, z, v,switchtime, elaspedtime);
 
-		window.clear();
+		/*window.clear();
 		window.draw(bg);
 		for (int i = 0; i < 4; i++)
 		{
 			window.draw(blue_tetromino[i]);
 		}
 		window.draw(Grid);
-		window.display();
+		window.display();*/
 	}
+}
+
+inline void Well::Draw(RenderWindow& window, Sprite tetromino[], RectangleShape& bg, RectangleShape& Grid)
+{
+	window.clear();
+	window.draw(bg);
+	for (int i = 0; i < 4; i++)
+	{
+		window.draw(tetromino[i]);
+	}
+	window.draw(Grid);
+	window.display();
+
 }

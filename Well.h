@@ -11,7 +11,6 @@ private:
 public:
 	Well();
 	void Board(RenderWindow& window);
-	int ReturnBoardValue( float x, float y);
 };
 
 Well::Well()
@@ -90,22 +89,3 @@ void Well::Board(RenderWindow& window)
 	}
 	return;
 }
-
-int Well::ReturnBoardValue( float x, float y)
-{
-	float a = 3.0f, b = 8.0f;
-	for (int i = 0; i < 20; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (x == a && y == b)
-				return well[i][j];
-			else
-			{
-				a += 53.0f;
-				b += 40.5;
-			}
-		}
-	}
-}
-

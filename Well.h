@@ -88,6 +88,7 @@ void Well::Board(RenderWindow& window)
 		blue_t.MoveTetromino(window, tetromino, blue, isrotated, x, y, z, v, switchtime, elaspedtime, bg, Grid);
 		
 	}
+	delete[]tetromino;
 	return;
 }
 

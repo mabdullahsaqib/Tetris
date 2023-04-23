@@ -4,7 +4,7 @@
 #include"Well.h"
 using namespace sf;
 
-class Tetromino_Blue  
+class Tetromino_Blue : public Well
 {
 private:
 	int tetromino;

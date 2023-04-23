@@ -4,15 +4,19 @@
 #include"Well.h"
 using namespace sf;
 
-class Tetromino_Blue : public Well
+class Tetromino_Blue 
 {
 private:
 	int tetromino;
+	int** Board;
 public:
 	Tetromino_Blue();
 	int GetTetromino();
+	void GetBoard(int array[][10]);
+	void SetBoard(int array[][10]);
 	void Rotation(RenderWindow& window,Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid);
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid);
+	~Tetromino_Blue();
 };
 
 Tetromino_Blue::Tetromino_Blue()
@@ -24,6 +28,34 @@ int Tetromino_Blue::GetTetromino()
 {
 	return tetromino;
 }
+
+void Tetromino_Blue::SetBoard(int array[][10])
+{
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			array[i][j] = Board[i][j];
+		}
+	}
+}
+
+void Tetromino_Blue::GetBoard(int array[][10])
+{
+	Board = new int* [20];
+	for (int i = 0; i < 20; i++)
+	{
+		Board[i] = new int[10];
+	}
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			Board[i][j] = array[i][j];
+		}
+	}
+}
+
 
 void Tetromino_Blue::Rotation(RenderWindow& window, Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
 {
@@ -238,4 +270,13 @@ void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Tex
 	window.draw(Grid);
 	window.display();
 	return;
+}
+
+Tetromino_Blue::~Tetromino_Blue()
+{
+	for (int i = 0; i < 20; i++)
+	{
+		delete[]Board[i];
+	}
+	delete[]Board;
 }

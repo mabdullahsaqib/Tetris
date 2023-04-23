@@ -2,18 +2,23 @@
 #include<iostream>
 #include<SFML/Graphics.hpp>
 #include"Well.h"
-#include"Tetromino.h"
 using namespace sf;
 
-class Tetromino_Blue 
+class Tetromino_Blue  
 {
 private:
-	int tetromino = 1;
+	int tetromino;
 public:
+	Tetromino_Blue();
 	int GetTetromino();
 	void Rotation(RenderWindow& window,Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid);
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid);
 };
+
+Tetromino_Blue::Tetromino_Blue()
+{
+	tetromino = 1;
+}
 
 int Tetromino_Blue::GetTetromino()
 {
@@ -79,9 +84,9 @@ void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Tex
 
 	if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
 	{
-		if (rotation == 0)
+		if (rotation == 0 )
 		{
-			if (x < 466)
+			if (x < 466 )
 			{
 				x += v;
 				for (int i = 0; i < 4; i++)
@@ -232,6 +237,5 @@ void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Tex
 	}
 	window.draw(Grid);
 	window.display();
-	return;
 	return;
 }

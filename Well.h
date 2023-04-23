@@ -11,6 +11,7 @@ private:
 public:
 	Well();
 	void Board(RenderWindow& window);
+	int ReturnBoardValue( float x, float y);
 };
 
 Well::Well()
@@ -36,7 +37,6 @@ void Well::Board(RenderWindow& window)
 	RectangleShape Grid;
 	Grid.setSize(Vector2f(530.0f, 809.25f));
 	Grid.setPosition(0.0f, 5.0f);
-	//Grid.setFillColor(Color(255, 255, 255));
 	Texture grid;
 	grid.loadFromFile("Textures/Grid 10x20.png");
 	Grid.setTexture(&grid);
@@ -45,14 +45,15 @@ void Well::Board(RenderWindow& window)
 	Texture blue;
 	blue.loadFromFile("Textures/Tetromino_blue_block.png");
 
-	Sprite blue_tetromino[4];
-	for (int i = 0, j= 8.0 ; i < 4; i++, j+=40.5)
+	Sprite* tetromino;
+	tetromino = new Sprite[4];
+	for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
 	{
-		blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-		blue_tetromino[i].setTexture(blue);
-		blue_tetromino[i].setPosition(3.0, j);
+		tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+		tetromino[i].setTexture(blue);
+		tetromino[i].setPosition(3.0, j);
 	}
-	
+
 	Tetromino_Blue blue_t;
 
 	Clock clock;
@@ -80,206 +81,31 @@ void Well::Board(RenderWindow& window)
 
 
 			}
-			/*if (Keyboard::isKeyPressed(Keyboard::Key::Up))
-			{
-				isrotated = !isrotated;
-				if (isrotated == 0 && y < 670)
-				{
-					if (z < 670)
-					{
-						for (int i = 0; i < 4; i++)
-						{
-							blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							blue_tetromino[i].setTexture(blue);
-							blue_tetromino[i].setPosition(x, z);
-							z += 40.5f;
-						}
-						z = y;
-					}
-					else
-						isrotated = 1;
-				}
-				else
-					isrotated = 1;
-				if (isrotated == 1 && x < 350)
-				{
-					z = x;
-					if (z < 350)
-					{
-						for (int i = 0; i < 4; i++)
-						{
-							blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							blue_tetromino[i].setTexture(blue);
-							blue_tetromino[i].setPosition(z, y);
-							z += v;
-						}
-					}
-					else
-						isrotated = 0;
-					z = y;
-				}
-				else
-					isrotated = 0;
-			}*/
-			blue_t.Rotation(window, blue_tetromino, blue, isrotated, x, y, z, v, bg, Grid);
-		}
-		/*
-		if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
-		{
-			if (isrotated == 0)
-			{
-				if (x < 466)
-				{
-					x += v;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, z);
-						z += 40.5f;
-					}
-					z = y;
-				}
-			}
-			else if(isrotated == 1)
-			{
-				if (x < 300)
-				{
-					x += v;
-					z = x;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, y);
-						x += v;
-					}
-					x = z;
-					z = y;
-				}
 
-			}
-			switchtime = 0;
+			blue_t.Rotation(window, tetromino, blue, isrotated, x, y, z, v, bg, Grid);
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
-		{
-			if (isrotated == 0)
-			{
-				if (x > 50)
-				{
-					x -= v;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, z);
-						z += 40.5f;
-					}
-					z = y;
-				}
-			}
-			else if (isrotated == 1)
-			{
-				if (x > 50)
-				{
-					x -= v;
-					z = x;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, y);
-						x += v;
-					}
-					x = z;
-					z = y;
-				}
-			}
-			switchtime = 0;
-		}
-		if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.2)
-		{
-			if (isrotated == 0)
-			{
-				if (y < 640)
-				{
-					y += 40.5f;
-					z = y;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, z);
-						z += 40.5f;
-					}
-					z = y;
-				}
-			}
-			else if (isrotated == 1)
-			{
-				if (y < 760)
-				{
-					y += 40.5f;
-					z = x;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, y);
-						x += v;
-					}
-					x = z;
-					z = y;
-				}
-			}
-			switchtime = 0;
-		}
-		else if (elaspedtime > 1.0)
-		{
-			if (isrotated == 0)
-			{
-				if (y < 640)
-				{
-					y += 40.5f;
-					z = y;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, z);
-						z += 40.5f;
-					}
-					z = y;
-				}
-			}
-			else if (isrotated == 1)
-			{
-				if (y < 760)
-				{
-					y += 40.5f;
-					z = x;
-					for (int i = 0; i < 4; i++)
-					{
-						blue_tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						blue_tetromino[i].setTexture(blue);
-						blue_tetromino[i].setPosition(x, y);
-						x += v;
-					}
-					x = z;
-					z = y;
-				}
-			}
-			elaspedtime = 0.0;
-		}*/
-		blue_t.MoveTetromino(window, blue_tetromino, blue, isrotated, x, y, z, v,switchtime, elaspedtime, bg, Grid);
 
-		//window.clear();
-		//window.draw(bg);
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	window.draw(blue_tetromino[i]);
-		//}
-		//window.draw(Grid);
-		//window.display();
+		blue_t.MoveTetromino(window, tetromino, blue, isrotated, x, y, z, v, switchtime, elaspedtime, bg, Grid);
+		
+	}
+	return;
+}
+
+int Well::ReturnBoardValue( float x, float y)
+{
+	float a = 3.0f, b = 8.0f;
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (x == a && y == b)
+				return well[i][j];
+			else
+			{
+				a += 53.0f;
+				b += 40.5;
+			}
+		}
 	}
 }
+

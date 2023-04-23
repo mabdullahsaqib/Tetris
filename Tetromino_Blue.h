@@ -14,7 +14,9 @@ public:
 	int GetTetromino();
 	void GetBoard(int array[][10]);
 	void SetBoard(int array[][10]);
+	bool CheckBoard(float x , float y, bool rotated);
 	int ReturnBoardValue(float x, float y);
+	void SetBoardValue(float x, float y, bool rotated);
 	void Rotation(RenderWindow& window,Sprite tetromino[],Texture blue, bool& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid);
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, bool& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid);
 	~Tetromino_Blue();
@@ -40,6 +42,36 @@ void Tetromino_Blue::SetBoard(int array[][10])
 			array[i][j] = Board[i][j];
 		}
 	}
+}
+
+bool Tetromino_Blue::CheckBoard(float x, float y, bool rotated)
+{
+	int check = 0;
+	if (rotated == 0)
+	{
+		if (ReturnBoardValue(x, y + 40.5) != 0)
+			check++;
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 81.0f) != 0 || ReturnBoardValue(x + 53.0f, y + 121.5) != 0)
+			check++;
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x - 53.0f, y + 81.0f) != 0 || ReturnBoardValue(x - 53.0f, y + 121.5) != 0)
+			check++;
+		if (check == 3)
+			return false;
+		return true;
+	}
+	else if (rotated == 1)
+	{
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 106.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 159.0f, y + 40.5f) != 0)
+			check++;
+		if (ReturnBoardValue(x + 212.0f, y) != 0)
+			check++;
+		if (ReturnBoardValue(x - 53.0f, y) != 0)
+			check++;
+		if (check == 3)
+			return false;
+		return true;
+	}
+
 }
 
 void Tetromino_Blue::GetBoard(int array[][10])
@@ -283,6 +315,8 @@ void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Tex
 		}
 		elaspedtime = 0.0;
 	}
+	if (CheckBoard(x, y, rotation) == 0)
+		SetBoardValue(x, y, rotation);
 	window.clear();
 	window.draw(bg);
 	for (int i = 0; i < 4; i++)

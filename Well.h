@@ -74,6 +74,7 @@ void Well::Board(RenderWindow& window)
 		if (checkboard == 0)
 		{
 			delete[]tetromino;
+			CheckForMatch();
 			if (well[0][5] == 0)
 			{
 				tetromino = new Sprite[4];
@@ -150,8 +151,8 @@ void Well::CheckForMatch()
 				}
 				l--;
 			}
-			match = 0;
 		}
+		match = 0;
 	}
 }
 

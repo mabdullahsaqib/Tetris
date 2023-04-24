@@ -60,6 +60,7 @@ void Well::Board(RenderWindow& window)
 	bool isrotated = 0;
 	bool checkboard = 0;
 
+	window.draw(bg);
 
 	while (window.isOpen())
 	{

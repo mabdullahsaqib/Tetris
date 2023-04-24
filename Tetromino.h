@@ -10,10 +10,9 @@ private:
 	int tetromino;
 public:
 	Tetromino();
-
 };
 
 Tetromino::Tetromino()
 {
-	tetromino = 0;
+	tetromino = 1;
 }

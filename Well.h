@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<Windows.h>
 #include<SFML/Graphics.hpp>
 #include"Tetromino_Blue.h"
 using namespace sf;
@@ -11,6 +12,7 @@ private:
 public:
 	Well();
 	void Board(RenderWindow& window);
+	void CheckForMatch();
 };
 
 Well::Well()
@@ -59,6 +61,7 @@ void Well::Board(RenderWindow& window)
 	float elaspedtime = 0.0;
 	bool isrotated = 0;
 	bool checkboard = 0;
+	int match=0;
 
 	window.draw(bg);
 
@@ -71,18 +74,27 @@ void Well::Board(RenderWindow& window)
 		if (checkboard == 0)
 		{
 			delete[]tetromino;
-			tetromino = new Sprite[4];
-			for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
+			if (well[0][5] == 0)
 			{
-				tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-				tetromino[i].setTexture(blue);
-				tetromino[i].setPosition(268.0, j);
+				tetromino = new Sprite[4];
+				for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
+				{
+					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
+					tetromino[i].setTexture(blue);
+					tetromino[i].setPosition(268.0, j);
+				}
+				x = 268.0f;
+				y = 8.0f;
+				v = 53.0f;
+				z = 8.0f;
+				isrotated = 0;
 			}
-			 x = 268.0f;
-			 y = 8.0f;
-			 v = 53.0f;
-			 z = 8.0f;
-			 isrotated = 0;
+			else
+			{
+				Sleep(1000);
+				window.close();
+				std::cout << "\n\nGame Over!!!!\n\n";
+			}
 		}
 		
 
@@ -100,12 +112,46 @@ void Well::Board(RenderWindow& window)
 			blue_t.GetBoard(well);
 			blue_t.Rotation(window, tetromino, blue, isrotated, x, y, z, v, bg, Grid);
 			blue_t.SetBoard(well);
+
 		}
+
 
 		blue_t.GetBoard(well);
 		blue_t.MoveTetromino(window, tetromino, blue, isrotated, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
 		blue_t.SetBoard(well);
+
+		//CheckForMatch();
 	}
 	return;
+}
+
+void Well::CheckForMatch()
+{
+	int match = 0, l;
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (well[i][j] != 0)
+				match++;
+		}
+		if (match == 10)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				well[i][j] = 0;
+			}
+			l = i;
+			for (int k = i - 1; k >= 0; k--)
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					std::swap(well[l][j], well[k][j]);
+				}
+				l--;
+			}
+			match = 0;
+		}
+	}
 }
 

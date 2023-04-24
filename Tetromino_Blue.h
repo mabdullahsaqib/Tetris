@@ -158,7 +158,6 @@ void Tetromino_Blue::Draw(RenderWindow& window, Texture& blue, RectangleShape& b
 
 
 	window.clear();
-	//window.draw(bg);
 	for (int i = 0; i < 4; i++)
 	{
 		window.draw(tetromino[i]);
@@ -232,14 +231,7 @@ void Tetromino_Blue::Rotation(RenderWindow& window, Sprite tetromino[],Texture b
 		else
 			rotation = 0;
 	}
-	//window.clear();
-	////window.draw(bg);
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	window.draw(tetromino[i]);
-	//}
-	//window.draw(Grid);
-	//window.display();
+	
 	Draw(window,blue,bg,Grid,tetromino);
 	return;
 }
@@ -401,14 +393,7 @@ void Tetromino_Blue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Tex
 	}
 	if (checkboard == 0)
 		SetBoardValue(x, y, rotation);
-	//window.clear();
-	////window.draw(bg);
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	window.draw(tetromino[i]);
-	//}
-	//window.draw(Grid);
-	//window.display();
+
 	Draw(window, blue, bg, Grid, tetromino);
 
 	return;

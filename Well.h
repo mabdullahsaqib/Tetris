@@ -59,6 +59,8 @@ void Well::Board(RenderWindow& window)
 	float elaspedtime = 0.0;
 	bool isrotated = 0;
 	bool checkboard = 0;
+
+
 	while (window.isOpen())
 	{
 		Event e;

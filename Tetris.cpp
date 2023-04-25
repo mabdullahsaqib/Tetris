@@ -1,12 +1,11 @@
 #include<iostream>
 #include<SFML/Graphics.hpp> 
-#include"Well.h"
+#include"Game.h"
 using namespace sf;
 int main()
 {
 	RenderWindow window(VideoMode(840, 820), "TETRIS!!", Style::Titlebar | Style::Resize | Style::Close);
-	Well well;
-	well.Board(window);
+	Game tetris(window);
 	
 	return 0;
 }

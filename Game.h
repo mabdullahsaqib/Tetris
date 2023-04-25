@@ -6,13 +6,13 @@ using namespace sf;
 
 class Game
 {
-public:
-	Game();
-
 private:
-
+	Well well;
+public:
+	Game(RenderWindow& window);
 };
 
-Game::Game()
+Game::Game(RenderWindow& window)
 {
+	well.Board(window);
 }

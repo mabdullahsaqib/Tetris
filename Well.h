@@ -1,7 +1,9 @@
 #pragma once
 #include<iostream>
 #include<Windows.h>
+#include<time.h>
 #include<SFML/Graphics.hpp>
+#include"Tetromino.h"
 #include"Tetromino_Blue.h"
 using namespace sf;
 
@@ -42,28 +44,34 @@ void Well::Board(RenderWindow& window)
 	grid.loadFromFile("Textures/Grid 10x20.png");
 	Grid.setTexture(&grid);
 
-	//Sets the blue that is I Shaped Tetromino
-	Texture blue;
-	blue.loadFromFile("Textures/Tetromino_blue_block.png");
+	srand(time(0));
 
-	Sprite* tetromino;
-	tetromino = nullptr;
+	Tetromino tetromino;
+
+	//Sets the texture of Tetromino
+	Texture texture;
 	
-	Tetromino_Blue blue_t;
+
+	Sprite* blocks;
+	blocks = nullptr;
+	
+	Tetromino_Blue texture_t;
 
 	Clock clock;
-	float x = 268.0f;
-	float y = 8.0f;
-	float v = 53.0f;
-	float z = 8.0f;
+	float x;
+	float y;
+	float v;
+	float z;
 	float deltatime;
 	float switchtime = 0.0;
 	float elaspedtime = 0.0;
 	bool isrotated = 0;
 	bool checkboard = 0;
 	int match=0;
+	int random = 0;
 
 	window.draw(bg);
+	
 
 	while (window.isOpen())
 	{
@@ -73,21 +81,25 @@ void Well::Board(RenderWindow& window)
 		elaspedtime += deltatime;
 		if (checkboard == 0)
 		{
-			delete[]tetromino;
+			delete[]blocks;
 			CheckForMatch();
+			random = (rand() % 7) + 1;
+			tetromino.SetTetromino(1);
+			tetromino.SetTexture(texture);
 			if (well[0][5] == 0)
 			{
-				tetromino = new Sprite[4];
-				for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
+				blocks = new Sprite[4];
+				/*for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
 				{
-					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-					tetromino[i].setTexture(blue);
-					tetromino[i].setPosition(268.0, j);
+					blocks[i].setScale(Vector2f(0.55f, 0.5f));
+					blocks[i].setTexture(texture);
+					blocks[i].setPosition(215.0, j);
 				}
-				x = 268.0f;
+				x = 215.0f;
 				y = 8.0f;
 				v = 53.0f;
-				z = 8.0f;
+				z = 8.0f;*/
+				tetromino.CreateTetromino(blocks, texture,x,y,z,v);
 				isrotated = 0;
 			}
 			else
@@ -110,18 +122,17 @@ void Well::Board(RenderWindow& window)
 
 			}
 
-			blue_t.GetBoard(well);
-			blue_t.Rotation(window, tetromino, blue, isrotated, x, y, z, v, bg, Grid);
-			blue_t.SetBoard(well);
+			texture_t.GetBoard(well);
+			texture_t.Rotation(window, blocks, texture, isrotated, x, y, z, v, bg, Grid);
+			texture_t.SetBoard(well);
 
 		}
 
 
-		blue_t.GetBoard(well);
-		blue_t.MoveTetromino(window, tetromino, blue, isrotated, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
-		blue_t.SetBoard(well);
+		texture_t.GetBoard(well);
+		texture_t.MoveTetromino(window, blocks, texture, isrotated, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
+		texture_t.SetBoard(well);
 
-		//CheckForMatch();
 	}
 	return;
 }

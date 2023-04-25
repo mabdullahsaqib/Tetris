@@ -4,7 +4,7 @@
 #include<time.h>
 #include<SFML/Graphics.hpp>
 #include"Tetromino.h"
-#include"Tetromino_Blue.h"
+#include"Tetromino_DarkBlue.h"
 using namespace sf;
 
 class Well
@@ -55,7 +55,7 @@ void Well::Board(RenderWindow& window)
 	Sprite* blocks;
 	blocks = nullptr;
 	
-	Tetromino_Blue texture_t;
+	Tetromino_DarkBlue texture_t;
 
 	Clock clock;
 	float x;
@@ -66,6 +66,7 @@ void Well::Board(RenderWindow& window)
 	float switchtime = 0.0;
 	float elaspedtime = 0.0;
 	bool isrotated = 0;
+	int rotation = 0;
 	bool checkboard = 0;
 	int match=0;
 	int random = 0;
@@ -84,9 +85,9 @@ void Well::Board(RenderWindow& window)
 			delete[]blocks;
 			CheckForMatch();
 			random = (rand() % 7) + 1;
-			tetromino.SetTetromino(1);
+			tetromino.SetTetromino(2);
 			tetromino.SetTexture(texture);
-			if (well[0][5] == 0)
+			if (well[0][4] == 0)
 			{
 				blocks = new Sprite[4];
 				tetromino.CreateTetromino(blocks, texture,x,y,z,v);
@@ -113,14 +114,14 @@ void Well::Board(RenderWindow& window)
 			}
 
 			texture_t.GetBoard(well);
-		    texture_t.Rotation(window, blocks, texture, isrotated, x, y, z, v, bg, Grid);
+		    texture_t.Rotation(window, blocks, texture, rotation, x, y, z, v, bg, Grid);
 			texture_t.SetBoard(well);
 
 		}
 
 
 		texture_t.GetBoard(well);
-		texture_t.MoveTetromino(window, blocks, texture, isrotated, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
+		texture_t.MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
 		texture_t.SetBoard(well);
 
 	}

@@ -89,16 +89,6 @@ void Well::Board(RenderWindow& window)
 			if (well[0][5] == 0)
 			{
 				blocks = new Sprite[4];
-				/*for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
-				{
-					blocks[i].setScale(Vector2f(0.55f, 0.5f));
-					blocks[i].setTexture(texture);
-					blocks[i].setPosition(215.0, j);
-				}
-				x = 215.0f;
-				y = 8.0f;
-				v = 53.0f;
-				z = 8.0f;*/
 				tetromino.CreateTetromino(blocks, texture,x,y,z,v);
 				isrotated = 0;
 			}
@@ -123,7 +113,7 @@ void Well::Board(RenderWindow& window)
 			}
 
 			texture_t.GetBoard(well);
-			texture_t.Rotation(window, blocks, texture, isrotated, x, y, z, v, bg, Grid);
+		    texture_t.Rotation(window, blocks, texture, isrotated, x, y, z, v, bg, Grid);
 			texture_t.SetBoard(well);
 
 		}

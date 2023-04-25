@@ -11,7 +11,6 @@ private:
 	int** Board;
 public:
 	Tetromino_Blue();
-	void CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v);
 	int GetTetromino();
 	void GetBoard(int array[][10]);
 	void SetBoard(int array[][10]);
@@ -24,24 +23,10 @@ public:
 	~Tetromino_Blue();
 };
 
-Tetromino_Blue::Tetromino_Blue()
+Tetromino_Blue::Tetromino_Blue() 
 {
 	tetromino = 1;
 	Board = nullptr;
-}
-
-void Tetromino_Blue::CreateTetromino(Sprite* blocks, Texture texture,float& x, float& y, float& z, float& v)
-{
-	for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
-	{
-		blocks[i].setScale(Vector2f(0.55f, 0.5f));
-		blocks[i].setTexture(texture);
-		blocks[i].setPosition(215.0, j);
-	}
-	x = 215.0f;
-	y = 8.0f;
-	v = 53.0f;
-	z = 8.0f;
 }
 
 int Tetromino_Blue::GetTetromino()

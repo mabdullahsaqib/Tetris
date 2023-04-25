@@ -14,9 +14,9 @@ public:
 	int GetTetromino();
 	void GetBoard(int array[][10]);
 	void SetBoard(int array[][10]);
-	bool CheckBoard(float x, float y, bool rotated);
+	bool CheckBoard(float x, float y, int rotated);
 	int ReturnBoardValue(float x, float y);
-	void SetBoardValue(float x, float y, bool rotated);
+	void SetBoardValue(float x, float y, int rotated);
 	void Rotation(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid);
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard);
 	void Draw(RenderWindow& window, Texture& darkblue, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
@@ -45,16 +45,16 @@ void Tetromino_DarkBlue::SetBoard(int array[][10])
 	}
 }
 
-bool Tetromino_DarkBlue::CheckBoard(float x, float y, bool rotated)
+bool Tetromino_DarkBlue::CheckBoard(float x, float y, int rotated)
 {
 	int check = 0;
 	if (rotated == 0)
 	{
-		if (ReturnBoardValue(x, y + 162) != 0)
+		if (ReturnBoardValue(x, y + 121.5f) != 0 || ReturnBoardValue(x - 53.0f, y + 121.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 81.0f) != 0 || ReturnBoardValue(x + 53.0f, y + 121.5) != 0)
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 81.0f) != 0)
 			check++;
-		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x - 53.0f, y + 81.0f) != 0 || ReturnBoardValue(x - 53.0f, y + 121.5) != 0)
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x - 106.0f, y + 81.0f) != 0)
 			check++;
 		if (check == 3)
 			return false;
@@ -62,11 +62,35 @@ bool Tetromino_DarkBlue::CheckBoard(float x, float y, bool rotated)
 	}
 	else if (rotated == 1)
 	{
-		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 106.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 159.0f, y + 40.5f) != 0)
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x - 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x - 106.0f, y + 40.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x + 212.0f, y) != 0)
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y - 40.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x - 53.0f, y) != 0)
+		if (ReturnBoardValue(x - 159.0f, y) != 0 || ReturnBoardValue(x - 159.0f, y - 40.5f) != 0)
+			check++;
+		if (check == 3)
+			return false;
+		return true;
+	}
+	else if (rotated == 2)
+	{
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y - 40.5f) != 0)
+			check++;
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 53.0f, y - 40.5f) != 0 || ReturnBoardValue(x + 106.0f, y - 81.0f) != 0)
+			check++;
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y - 40.5f) != 0 || ReturnBoardValue(x - 53.0f, y - 81.0f) != 0)
+			check++;
+		if (check == 3)
+			return false;
+		return true;
+	}
+	else if (rotated == 3)
+	{
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x + 106.0f, y + 81.0f) != 0)
+			check++;
+		if (ReturnBoardValue(x + 159.0f, y) != 0 || ReturnBoardValue(x + 159.0f, y + 40.5f) != 0)
+			check++;
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0)
 			check++;
 		if (check == 3)
 			return false;
@@ -112,7 +136,7 @@ int Tetromino_DarkBlue::ReturnBoardValue(float x, float y)
 	return -1;
 }
 
-void Tetromino_DarkBlue::SetBoardValue(float x, float y, bool rotated)
+void Tetromino_DarkBlue::SetBoardValue(float x, float y, int rotated)
 {
 	float a = 3.0f, b = 8.0f;
 	for (int i = 0; i < 20; i++)
@@ -129,21 +153,21 @@ void Tetromino_DarkBlue::SetBoardValue(float x, float y, bool rotated)
 					Board[i + 2][j] = tetromino;
 					Board[i + 2][j-1] = tetromino;
 				}
-				else if (rotated == 1)
+				if (rotated == 1)
 				{
 					Board[i][j] = tetromino;
 					Board[i][j - 1] = tetromino;
 					Board[i][j - 2] = tetromino;
 					Board[i-1][j -2] = tetromino;
 				}
-				else if (rotated == 2)
+				if (rotated == 2)
 				{
 					Board[i][j] = tetromino;
 					Board[i-1][j] = tetromino;
 					Board[i-2][j] = tetromino;
 					Board[i-2][j + 1] = tetromino;
 				}
-				else if (rotated == 3)
+				if (rotated == 3)
 				{
 					Board[i][j] = tetromino;
 					Board[i][j + 1] = tetromino;
@@ -165,7 +189,7 @@ void Tetromino_DarkBlue::SetBoardValue(float x, float y, bool rotated)
 void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& darkblue, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])
 {
 	Sprite tetrominos;
-	tetrominos.setScale(Vector2f(0.55f, 0.5f));
+	tetrominos.setScale(Vector2f(0.61f, 0.5f));
 	tetrominos.setTexture(darkblue);
 
 	float a = 3.0f, b = 8.0f;
@@ -188,9 +212,7 @@ void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& darkblue, Rectangle
 				window.draw(tetrominos);
 			}
 
-
 			a += 53.0f;
-
 		}
 		b += 40.5f;
 	}
@@ -670,7 +692,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		switchtime = 0;
 	}
-	//checkboard = CheckBoard(x, y, rotation);
+	checkboard = CheckBoard(x, y, rotation);
 	if (elaspedtime > 1.0)
 	{
 		if (rotation == 0)
@@ -787,12 +809,10 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		elaspedtime = 0.0;
 	}
-	/*if (checkboard == 0)
-		SetBoardValue(x, y, rotation);*/
-	checkboard = 1;
+	if (checkboard == 0)
+		SetBoardValue(x, y, rotation);
 
 	Draw(window, darkblue, bg, Grid, tetromino);
-
 	return;
 }
 

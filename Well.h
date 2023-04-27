@@ -6,6 +6,7 @@
 #include"Tetromino.h"
 #include"Tetromino_Blue.h"
 #include"Tetromino_DarkBlue.h"
+#include"Tetromino_Orange.h"
 using namespace sf;
 
 class Well
@@ -85,11 +86,14 @@ void Well::Board(RenderWindow& window)
 			delete[]blocks;
 			delete[]tetromino;
 			CheckForMatch();
-			random = (rand() % 2) + 1;
+			random = (rand() % 3) + 1;
 		    if (random == 1)
 			tetromino = new Tetromino_Blue;
 			else if(random == 2)
 				tetromino = new Tetromino_DarkBlue;
+			else if (random == 3)
+				tetromino = new Tetromino_Orange;
+
 			tetromino->SetTetromino(random);
 			tetromino->SetTexture(texture);
 			if (well[0][4] == 0)

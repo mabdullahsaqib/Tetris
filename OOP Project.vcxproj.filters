@@ -35,5 +35,8 @@
     <ClInclude Include="Tetromino_DarkBlue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tetromino_Orange.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include<time.h>
 #include<SFML/Graphics.hpp>
 #include"Tetromino.h"
+#include"Tetromino_Blue.h"
 #include"Tetromino_DarkBlue.h"
 using namespace sf;
 
@@ -46,7 +47,8 @@ void Well::Board(RenderWindow& window)
 
 	srand(time(0));
 
-	Tetromino tetromino;
+	Tetromino *tetromino;
+	tetromino = nullptr;
 
 	//Sets the texture of Tetromino
 	Texture texture;
@@ -55,7 +57,6 @@ void Well::Board(RenderWindow& window)
 	Sprite* blocks;
 	blocks = nullptr;
 	
-	Tetromino_DarkBlue texture_t;
 
 	Clock clock;
 	float x;
@@ -65,7 +66,7 @@ void Well::Board(RenderWindow& window)
 	float deltatime;
 	float switchtime = 0.0;
 	float elaspedtime = 0.0;
-	bool isrotated = 0;
+	//bool isrotated = 0;
 	int rotation = 0;
 	bool checkboard = 0;
 	int match=0;
@@ -83,18 +84,26 @@ void Well::Board(RenderWindow& window)
 		if (checkboard == 0)
 		{
 			delete[]blocks;
+			delete[]tetromino;
 			CheckForMatch();
-			random = (rand() % 7) + 1;
-			tetromino.SetTetromino(2);
-			tetromino.SetTexture(texture);
+			random = (rand() % 2) + 1;
+		    if (random == 1)
+			tetromino = new Tetromino_Blue;
+			else if(random == 2)
+				tetromino = new Tetromino_DarkBlue;
+			tetromino->SetTetromino(random);
+			tetromino->SetTexture(texture);
 			if (well[0][4] == 0)
 			{
 				blocks = new Sprite[4];
-				tetromino.CreateTetromino(blocks, texture,x,y,z,v);
-				isrotated = 0;
+				tetromino->CreateTetromino(blocks, texture,x,y,z,v);
+				//isrotated = 0;
+			    rotation = 0;
+
 			}
 			else
 			{
+				delete[]tetromino;
 				Sleep(1000);
 				window.close();
 				std::cout << "\n\nGame Over!!!!\n\n";
@@ -113,16 +122,16 @@ void Well::Board(RenderWindow& window)
 
 			}
 
-			texture_t.GetBoard(well);
-		    texture_t.Rotation(window, blocks, texture, rotation, x, y, z, v, bg, Grid);
-			texture_t.SetBoard(well);
+			tetromino->GetBoard(well);
+			tetromino->RotateTetromino(window, blocks, texture, rotation, x, y, z, v, bg, Grid);
+			tetromino->SetBoard(well);
 
 		}
 
 
-		texture_t.GetBoard(well);
-		texture_t.MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
-		texture_t.SetBoard(well);
+		tetromino->GetBoard(well);
+		tetromino->MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
+		tetromino->SetBoard(well);
 
 	}
 	return;
@@ -157,4 +166,3 @@ void Well::CheckForMatch()
 		match = 0;
 	}
 }
-

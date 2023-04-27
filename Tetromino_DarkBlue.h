@@ -12,13 +12,14 @@ private:
 public:
 	Tetromino_DarkBlue();
 	int GetTetromino();
-	void GetBoard(int array[][10]);
-	void SetBoard(int array[][10]);
+	void GetBoard(int array[][10])override;
+	void SetBoard(int array[][10])override;
 	bool CheckBoard(float x, float y, int rotated);
+	void CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)override;
 	int ReturnBoardValue(float x, float y);
 	void SetBoardValue(float x, float y, int rotated);
-	void Rotation(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid);
-	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard);
+	void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
+	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)override;
 	void Draw(RenderWindow& window, Texture& darkblue, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
 	~Tetromino_DarkBlue();
 };
@@ -96,7 +97,32 @@ bool Tetromino_DarkBlue::CheckBoard(float x, float y, int rotated)
 			return false;
 		return true;
 	}
+}
 
+void Tetromino_DarkBlue::CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)
+{
+
+	for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
+	{
+		if (i != 3)
+		{
+			blocks[i].setScale(Vector2f(0.61f, 0.5f));
+			blocks[i].setTexture(texture);
+			blocks[i].setPosition(215.0, j);
+		}
+		else
+		{
+			j -= 40.5;
+			blocks[i].setScale(Vector2f(0.61f, 0.5f));
+			blocks[i].setTexture(texture);
+			blocks[i].setPosition(162.0, j);
+		}
+
+	}
+	x = 215.0f;
+	y = 8.0f;
+	v = 53.0f;
+	z = 8.0f;
 }
 
 void Tetromino_DarkBlue::GetBoard(int array[][10])
@@ -153,21 +179,21 @@ void Tetromino_DarkBlue::SetBoardValue(float x, float y, int rotated)
 					Board[i + 2][j] = tetromino;
 					Board[i + 2][j-1] = tetromino;
 				}
-				if (rotated == 1)
+				else if (rotated == 1)
 				{
 					Board[i][j] = tetromino;
 					Board[i][j - 1] = tetromino;
 					Board[i][j - 2] = tetromino;
 					Board[i-1][j -2] = tetromino;
 				}
-				if (rotated == 2)
+				else if (rotated == 2)
 				{
 					Board[i][j] = tetromino;
 					Board[i-1][j] = tetromino;
 					Board[i-2][j] = tetromino;
 					Board[i-2][j + 1] = tetromino;
 				}
-				if (rotated == 3)
+				else if (rotated == 3)
 				{
 					Board[i][j] = tetromino;
 					Board[i][j + 1] = tetromino;
@@ -176,11 +202,8 @@ void Tetromino_DarkBlue::SetBoardValue(float x, float y, int rotated)
 				}
 				return;
 			}
-
-			else
-			{
 				a += 53.0f;
-			}
+			
 		}
 		b += 40.5f;
 	}
@@ -224,7 +247,7 @@ void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& darkblue, Rectangle
 }
 
 
-void Tetromino_DarkBlue::Rotation(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
+void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key::Up))
 	{

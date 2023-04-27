@@ -20,7 +20,7 @@ public:
 	void SetBoardValue(float x, float y, int rotated);
 	void RotateTetromino(RenderWindow& window,Sprite tetromino[],Texture blue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid,bool& checkboard)override;
-	void Draw(RenderWindow& window, Texture& blue, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
+	void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
 	~Tetromino_Blue();
 };
 
@@ -163,11 +163,11 @@ void Tetromino_Blue::SetBoardValue(float x, float y, int rotated)
 	}
 }
 
-void Tetromino_Blue::Draw(RenderWindow& window, Texture& blue, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])
+void Tetromino_Blue::Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])
 {
 	Sprite tetrominos;
 	tetrominos.setScale(Vector2f(0.55f, 0.5f));
-	tetrominos.setTexture(blue);
+	tetrominos.setTexture(color);
 
 	float a = 3.0f, b = 8.0f;
 
@@ -183,11 +183,23 @@ void Tetromino_Blue::Draw(RenderWindow& window, Texture& blue, RectangleShape& b
 		a = 3.0f;
 		for (int j = 0; j < 10; j++)
 		{
-			if (Board[i][j] == this->tetromino)
+			if (Board[i][j] == 1)
 			{
+				color.loadFromFile("Textures/Tetromino_blue_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
 				tetrominos.setPosition(a, b);
 				window.draw(tetrominos);
 			}
+			else if (Board[i][j] == 2)
+			{
+				color.loadFromFile("Textures/Tetromino_darkblue_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+
 
 
 			a += 53.0f;

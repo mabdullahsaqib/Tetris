@@ -66,7 +66,6 @@ void Well::Board(RenderWindow& window)
 	float deltatime;
 	float switchtime = 0.0;
 	float elaspedtime = 0.0;
-	//bool isrotated = 0;
 	int rotation = 0;
 	bool checkboard = 0;
 	int match=0;
@@ -97,7 +96,6 @@ void Well::Board(RenderWindow& window)
 			{
 				blocks = new Sprite[4];
 				tetromino->CreateTetromino(blocks, texture,x,y,z,v);
-				//isrotated = 0;
 			    rotation = 0;
 
 			}

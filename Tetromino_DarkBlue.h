@@ -8,7 +8,8 @@ class Tetromino_DarkBlue : public Tetromino
 {
 private:
 	int tetromino;
-	int** Board;
+	int Board[20][10];
+
 public:
 	Tetromino_DarkBlue();
 	void GetBoard(int array[][10])override;
@@ -20,13 +21,11 @@ public:
 	void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)override;
 	void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
-	~Tetromino_DarkBlue();
 };
 
 Tetromino_DarkBlue::Tetromino_DarkBlue()
 {
 	tetromino = 2;
-	Board = nullptr;
 }
 
 void Tetromino_DarkBlue::SetBoard(int array[][10])
@@ -121,12 +120,6 @@ void Tetromino_DarkBlue::CreateTetromino(Sprite* blocks, Texture texture, float&
 
 void Tetromino_DarkBlue::GetBoard(int array[][10])
 {
-	delete[]Board;
-	Board = new int* [20];
-	for (int i = 0; i < 20; i++)
-	{
-		Board[i] = new int[10];
-	}
 	for (int i = 0; i < 20; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -858,13 +851,4 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 
 	Draw(window, darkblue, bg, Grid, tetromino);
 	return;
-}
-
-Tetromino_DarkBlue::~Tetromino_DarkBlue()
-{
-	for (int i = 0; i < 20; i++)
-	{
-		delete[]Board[i];
-	}
-	delete[]Board;
 }

@@ -108,6 +108,7 @@ void Well::Board(RenderWindow& window)
 			}
 			else
 			{
+				delete[]blocks;
 				delete[]tetromino;
 				Sleep(1000);
 				window.close();

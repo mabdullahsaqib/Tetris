@@ -43,6 +43,8 @@ void Tetromino::SetTexture(Texture& texture)
 		texture.loadFromFile("Textures/Tetromino_darkblue_block.png");
 	else if (tetromino == 3)
 		texture.loadFromFile("Textures/Tetromino_orange_block.png");
+	else if (tetromino == 4)
+		texture.loadFromFile("Textures/Tetromino_yellow_block.png");
 	return;
 }
 

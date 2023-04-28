@@ -11,7 +11,6 @@ private:
 	int** Board;
 public:
 	Tetromino_Blue();
-	int GetTetromino();
 	void GetBoard(int array[][10])override;
 	void SetBoard(int array[][10])override;
 	bool CheckBoard(float x , float y, int rotated);
@@ -28,11 +27,6 @@ Tetromino_Blue::Tetromino_Blue()
 {
 	tetromino = 1;
 	Board = nullptr;
-}
-
-int Tetromino_Blue::GetTetromino()
-{
-	return tetromino;
 }
 
 void Tetromino_Blue::SetBoard(int array[][10])
@@ -207,7 +201,14 @@ void Tetromino_Blue::Draw(RenderWindow& window, Texture& color, RectangleShape& 
 				tetrominos.setPosition(a, b);
 				window.draw(tetrominos);
 			}
-
+			else if (Board[i][j] == 4)
+			{
+				color.loadFromFile("Textures/Tetromino_yellow_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
 
 			a += 53.0f;
 

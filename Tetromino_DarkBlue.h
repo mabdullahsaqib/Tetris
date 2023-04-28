@@ -245,6 +245,14 @@ void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& color, RectangleSha
 				tetrominos.setPosition(a, b);
 				window.draw(tetrominos);
 			}
+			else if (Board[i][j] == 3)
+			{
+				color.loadFromFile("Textures/Tetromino_orange_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
 
 			a += 53.0f;
 		}
@@ -333,9 +341,9 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 		}
 		if (rotation == 2)
 		{
-			if (rotation == 2 && y > 90 && x < 480 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x, y - 40.5f) == 0 && ReturnBoardValue(x, y - 81.0f) == 0 && ReturnBoardValue(x + 53.0f, y - 81.0f) == 0)
+			if (rotation == 2 && y > 50 && x < 480 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x, y - 40.5f) == 0 && ReturnBoardValue(x, y - 81.0f) == 0 && ReturnBoardValue(x + 53.0f, y - 81.0f) == 0)
 			{
-				if (z > 90 && x < 480)
+				if (z > 50 && x < 480)
 				{
 					for (int i = 0; i < 4; i++)
 					{
@@ -364,7 +372,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 		}
 		if (rotation == 3)
 		{
-			if (rotation == 3 && y < 777.5 && x < 425 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 106.0f, y) == 0 && ReturnBoardValue(x - 106.0f, y - 40.5) == 0)
+			if (rotation == 3 && y < 777.5 && x < 425 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y + 40.5) == 0)
 			{
 				z = x;
 				if (z < 777.5 && x < 425)

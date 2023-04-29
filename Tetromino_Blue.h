@@ -4,6 +4,11 @@
 #include"Tetromino.h"
 using namespace sf;
 
+//Change the rotation from top block to bottom block
+//Change the rotation from 2 to 4 times.
+
+
+
 class Tetromino_Blue : public Tetromino
 {
 private:
@@ -202,9 +207,16 @@ void Tetromino_Blue::Draw(RenderWindow& window, Texture& color, RectangleShape& 
 				tetrominos.setPosition(a, b);
 				window.draw(tetrominos);
 			}
+			else if (Board[i][j] == 5)
+			{
+				color.loadFromFile("Textures/Tetromino_green_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
 
 			a += 53.0f;
-
 		}
 		b += 40.5f;
 	}

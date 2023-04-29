@@ -4,6 +4,10 @@
 #include"Tetromino.h"
 using namespace sf;
 
+
+//Change the private members j ank k 
+
+
 class Tetromino_Yellow : public Tetromino
 {
 private:
@@ -191,6 +195,14 @@ void Tetromino_Yellow::Draw(RenderWindow& window, Texture& color, RectangleShape
 			else if (Board[i][j] == 4)
 			{
 				color.loadFromFile("Textures/Tetromino_yellow_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (Board[i][j] == 5)
+			{
+				color.loadFromFile("Textures/Tetromino_green_block.png");
 				tetrominos.setTexture(color);
 				tetrominos.setScale(Vector2f(0.55f, 0.5f));
 				tetrominos.setPosition(a, b);

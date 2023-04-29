@@ -247,6 +247,14 @@ void Tetromino_Orange::Draw(RenderWindow& window, Texture& color, RectangleShape
 				tetrominos.setPosition(a, b);
 				window.draw(tetrominos);
 			}
+			else if (Board[i][j] == 5)
+			{
+				color.loadFromFile("Textures/Tetromino_green_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
 
 			a += 53.0f;
 		}

@@ -4,31 +4,31 @@
 #include"Tetromino.h"
 using namespace sf;
 
-class Tetromino_DarkBlue : public Tetromino
+class Tetromino_Green : public Tetromino
 {
 private:
 	int tetromino;
 	int Board[20][10];
 
 public:
-	Tetromino_DarkBlue();
+	Tetromino_Green();
 	void GetBoard(int array[][10])override;
 	void SetBoard(int array[][10])override;
 	bool CheckBoard(float x, float y, int rotated);
 	void CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)override;
 	int ReturnBoardValue(float x, float y);
 	void SetBoardValue(float x, float y, int rotated);
-	void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
-	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)override;
+	void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture green, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
+	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture green, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)override;
 	void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
 };
 
-Tetromino_DarkBlue::Tetromino_DarkBlue()
+Tetromino_Green::Tetromino_Green()
 {
-	tetromino = 2;
+	tetromino = 5;
 }
 
-void Tetromino_DarkBlue::SetBoard(int array[][10])
+void Tetromino_Green::SetBoard(int array[][10])
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -39,7 +39,7 @@ void Tetromino_DarkBlue::SetBoard(int array[][10])
 	}
 }
 
-bool Tetromino_DarkBlue::CheckBoard(float x, float y, int rotated)
+bool Tetromino_Green::CheckBoard(float x, float y, int rotated)
 {
 	int check = 0;
 	if (rotated == 0)
@@ -92,33 +92,29 @@ bool Tetromino_DarkBlue::CheckBoard(float x, float y, int rotated)
 	}
 }
 
-void Tetromino_DarkBlue::CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)
+void Tetromino_Green::CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)
 {
 
-	for (int i = 0, j = 8.0; i < 4; i++, j += 40.5)
+	for (int i = 0, j = 8.0f,k = 268.0f; i < 4; i++)
 	{
-		if (i != 3)
-		{
-			blocks[i].setScale(Vector2f(0.55f, 0.5f));
-			blocks[i].setTexture(texture);
-			blocks[i].setPosition(215.0, j);
-		}
-		else
-		{
-			j -= 40.5;
-			blocks[i].setScale(Vector2f(0.55f, 0.5f));
-			blocks[i].setTexture(texture);
-			blocks[i].setPosition(162.0, j);
-		}
 
+		if (i == 2)
+		{
+			j += 40.5f;
+			k += 53.0f;
+		}
+		blocks[i].setScale(Vector2f(0.55f, 0.5f));
+		blocks[i].setTexture(texture);
+		blocks[i].setPosition(k, j);
+		k -= 53.0f;
 	}
-	x = 215.0f;
+	x = 268.0f;
 	y = 8.0f;
 	v = 53.0f;
 	z = 8.0f;
 }
 
-void Tetromino_DarkBlue::GetBoard(int array[][10])
+void Tetromino_Green::GetBoard(int array[][10])
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -129,7 +125,7 @@ void Tetromino_DarkBlue::GetBoard(int array[][10])
 	}
 }
 
-int Tetromino_DarkBlue::ReturnBoardValue(float x, float y)
+int Tetromino_Green::ReturnBoardValue(float x, float y)
 {
 	float a = 3.0f, b = 8.0f;
 	for (int i = 0; i < 20; i++)
@@ -149,7 +145,7 @@ int Tetromino_DarkBlue::ReturnBoardValue(float x, float y)
 	return -1;
 }
 
-void Tetromino_DarkBlue::SetBoardValue(float x, float y, int rotated)
+void Tetromino_Green::SetBoardValue(float x, float y, int rotated)
 {
 	float a = 3.0f, b = 8.0f;
 	for (int i = 0; i < 20; i++)
@@ -162,41 +158,41 @@ void Tetromino_DarkBlue::SetBoardValue(float x, float y, int rotated)
 				if (rotated == 0)
 				{
 					Board[i][j] = tetromino;
-					Board[i + 1][j] = tetromino;
-					Board[i + 2][j] = tetromino;
-					Board[i + 2][j-1] = tetromino;
+					Board[i][j - 1] = tetromino;
+					Board[i + 1][j - 1] = tetromino;
+					Board[i + 1][j - 2] = tetromino;
 				}
 				else if (rotated == 1)
 				{
 					Board[i][j] = tetromino;
-					Board[i][j - 1] = tetromino;
-					Board[i][j - 2] = tetromino;
-					Board[i-1][j -2] = tetromino;
+					Board[i-1][j] = tetromino;
+					Board[i-1][j - 1] = tetromino;
+					Board[i - 2][j - 1] = tetromino;
 				}
 				else if (rotated == 2)
 				{
 					Board[i][j] = tetromino;
-					Board[i-1][j] = tetromino;
-					Board[i-2][j] = tetromino;
-					Board[i-2][j + 1] = tetromino;
+					Board[i][j + 1] = tetromino;
+					Board[i - 1][j + 1] = tetromino;
+					Board[i - 1][j + 2] = tetromino;
 				}
 				else if (rotated == 3)
 				{
 					Board[i][j] = tetromino;
-					Board[i][j + 1] = tetromino;
-					Board[i][j + 2] = tetromino;
-					Board[i+1][j + 2] = tetromino;
+					Board[i + 1][j] = tetromino;
+					Board[i + 1][j + 1] = tetromino;
+					Board[i + 2][j + 1] = tetromino;
 				}
 				return;
 			}
-				a += 53.0f;
-			
+			a += 53.0f;
+
 		}
 		b += 40.5f;
 	}
 }
 
-void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])
+void Tetromino_Green::Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])
 {
 	Sprite tetrominos;
 	tetrominos.setScale(Vector2f(0.55f, 0.5f));
@@ -269,7 +265,7 @@ void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& color, RectangleSha
 }
 
 
-void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
+void Tetromino_Green::RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture green, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key::Up))
 	{
@@ -277,7 +273,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 			rotation = 0;
 		else
 			rotation++;
-	
+
 		if (rotation == 0)
 		{
 			if (rotation == 0 && y < 700 && x>55 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x, y + 81.0f) == 0 && ReturnBoardValue(x - 53.0f, y + 81.0f) == 0)
@@ -289,7 +285,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						if (i != 3)
 						{
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(x, z);
 							z += 40.5f;
 						}
@@ -297,7 +293,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						{
 							z -= 40.5;
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(x - v, z);
 						}
 					}
@@ -321,7 +317,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						if (i != 3)
 						{
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(z, y);
 							z -= v;
 						}
@@ -329,7 +325,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						{
 							z += v;
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(z, y - 40.5);
 						}
 					}
@@ -353,7 +349,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						if (i != 3)
 						{
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(x, z);
 							z -= 40.5f;
 						}
@@ -361,7 +357,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						{
 							z += 40.5f;
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(x + v, z);
 						}
 					}
@@ -385,7 +381,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						if (i != 3)
 						{
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(z, y);
 							z += v;
 						}
@@ -393,7 +389,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 						{
 							z -= v;
 							tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-							tetromino[i].setTexture(darkblue);
+							tetromino[i].setTexture(green);
 							tetromino[i].setPosition(z, y + 40.5);
 						}
 					}
@@ -407,18 +403,18 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 				rotation = 2;
 		}
 	}
-	Draw(window, darkblue, bg, Grid, tetromino);
+	Draw(window, green, bg, Grid, tetromino);
 	return;
 }
 
-void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)
+void Tetromino_Green::MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture green, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)
 {
 
 	if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
 	{
 		if (rotation == 0)
 		{
-			if (x < 466 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0 )
+			if (x < 466 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0)
 			{
 				x += v;
 				for (int i = 0; i < 4; i++)
@@ -426,7 +422,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z += 40.5f;
 					}
@@ -434,7 +430,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= 40.5;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x - v, z);
 					}
 				}
@@ -443,7 +439,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 1)
 		{
-			if (x < 466 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x-53.0f,y-40.5f) == 0)
+			if (x < 466 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y - 40.5f) == 0)
 			{
 				x += v;
 				z = x;
@@ -452,7 +448,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z -= v;
 					}
@@ -460,7 +456,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y - 40.5);
 					}
 				}
@@ -478,7 +474,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z -= 40.5f;
 					}
@@ -486,7 +482,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += 40.5f;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x + v, z);
 					}
 				}
@@ -504,7 +500,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z += v;
 					}
@@ -512,7 +508,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y + 40.5);
 					}
 				}
@@ -525,7 +521,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 	{
 		if (rotation == 0)
 		{
-			if (x >108 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y + 81.0f) == 0)
+			if (x > 108 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y + 81.0f) == 0)
 			{
 				x -= v;
 				for (int i = 0; i < 4; i++)
@@ -533,7 +529,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z += 40.5f;
 					}
@@ -541,7 +537,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= 40.5;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x - v, z);
 					}
 				}
@@ -550,7 +546,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 1)
 		{
-			if (x >150 && ReturnBoardValue(x - 159.0f, y) == 0 && ReturnBoardValue(x - 159.0f, y - 40.5f) == 0)
+			if (x > 150 && ReturnBoardValue(x - 159.0f, y) == 0 && ReturnBoardValue(x - 159.0f, y - 40.5f) == 0)
 			{
 				x -= v;
 				z = x;
@@ -559,7 +555,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z -= v;
 					}
@@ -567,7 +563,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y - 40.5);
 					}
 				}
@@ -577,7 +573,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 2)
 		{
-			if (x >50 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y - 40.5) == 0 && ReturnBoardValue(x - 53.0f, y - 81.0f) == 0)
+			if (x > 50 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y - 40.5) == 0 && ReturnBoardValue(x - 53.0f, y - 81.0f) == 0)
 			{
 				x -= v;
 				for (int i = 0; i < 4; i++)
@@ -585,7 +581,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z -= 40.5f;
 					}
@@ -593,7 +589,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += 40.5f;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x + v, z);
 					}
 				}
@@ -602,7 +598,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 3)
 		{
-			if (x >50 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0)
+			if (x > 50 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0)
 			{
 				x -= v;
 				z = x;
@@ -611,7 +607,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z += v;
 					}
@@ -619,7 +615,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y + 40.5);
 					}
 				}
@@ -632,7 +628,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 	{
 		if (rotation == 0)
 		{
-			if (y < 660 && ReturnBoardValue(x, y+121.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 121.5f) == 0)
+			if (y < 660 && ReturnBoardValue(x, y + 121.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 121.5f) == 0)
 			{
 				y += 40.5f;
 				z = y;
@@ -641,7 +637,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z += 40.5f;
 					}
@@ -649,7 +645,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= 40.5;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x - v, z);
 					}
 				}
@@ -658,7 +654,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 1)
 		{
-			if (y<777 && ReturnBoardValue(x, y+40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y + 40.5f) == 0)
+			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y + 40.5f) == 0)
 			{
 				y += 40.5f;
 				z = x;
@@ -667,7 +663,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z -= v;
 					}
@@ -675,7 +671,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y - 40.5);
 					}
 				}
@@ -685,7 +681,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 2)
 		{
-			if (y < 777 && ReturnBoardValue(x , y+40.5f) == 0 && ReturnBoardValue(x + 53.0f, y - 40.5) == 0 )
+			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y - 40.5) == 0)
 			{
 				y += 40.5;
 				z = y;
@@ -694,7 +690,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z -= 40.5f;
 					}
@@ -702,7 +698,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += 40.5f;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x + v, z);
 					}
 				}
@@ -711,7 +707,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		else if (rotation == 3)
 		{
-			if (y < 730 && ReturnBoardValue(x, y+40.5f) == 0 && ReturnBoardValue(x+53.0f, y + 40.5f) == 0 && ReturnBoardValue(x + 106.0f, y + 81.0f) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x + 106.0f, y + 81.0f) == 0)
 			{
 				y += 40.5f;
 				z = x;
@@ -720,7 +716,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z += v;
 					}
@@ -728,7 +724,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y + 40.5);
 					}
 				}
@@ -751,7 +747,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z += 40.5f;
 					}
@@ -759,7 +755,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= 40.5;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x - v, z);
 					}
 				}
@@ -779,7 +775,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z -= v;
 					}
@@ -787,7 +783,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y - 40.5);
 					}
 				}
@@ -807,7 +803,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x, z);
 						z -= 40.5f;
 					}
@@ -815,7 +811,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z += 40.5f;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(x + v, z);
 					}
 				}
@@ -835,7 +831,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					if (i != 3)
 					{
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y);
 						z += v;
 					}
@@ -843,7 +839,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 					{
 						z -= v;
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
-						tetromino[i].setTexture(darkblue);
+						tetromino[i].setTexture(green);
 						tetromino[i].setPosition(z, y + 40.5);
 					}
 				}
@@ -857,6 +853,6 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 	if (checkboard == 0)
 		SetBoardValue(x, y, rotation);
 
-	Draw(window, darkblue, bg, Grid, tetromino);
+	Draw(window, green, bg, Grid, tetromino);
 	return;
 }

@@ -144,6 +144,7 @@
     <ClInclude Include="Tetromino.h" />
     <ClInclude Include="Tetromino_Blue.h" />
     <ClInclude Include="Tetromino_DarkBlue.h" />
+    <ClInclude Include="Tetromino_Green.h" />
     <ClInclude Include="Tetromino_Orange.h" />
     <ClInclude Include="Tetromino_Yellow.h" />
     <ClInclude Include="Well.h" />

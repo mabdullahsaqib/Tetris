@@ -4,18 +4,12 @@
 #include"Tetromino.h"
 using namespace sf;
 
-
-//Change the private members j ank k 
-
-
 class Tetromino_Yellow : public Tetromino
 {
 private:
 	int tetromino;
 	int Board[20][10];
 
-	float j;
-	float k;
 public:
 	Tetromino_Yellow();
 	void GetBoard(int array[][10])override;
@@ -65,9 +59,7 @@ bool Tetromino_Yellow::CheckBoard(float x, float y, int rotated)
 
 void Tetromino_Yellow::CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)
 {
-	j = 8.0f;
-	k = 215.0f;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0, j = 8.0f, k = 215.0f; i < 4; i++)
 	{
 
 		if (i == 2)
@@ -235,12 +227,10 @@ void Tetromino_Yellow::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 	{
 		if (rotation == 0)
 		{
-			if (x < 425 && ReturnBoardValue(x + 106.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y + 40.5f) == 0 )
+			if (x < 425 && ReturnBoardValue(x + 106.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y + 40.5f) == 0)
 			{
 				x += v;
-				j = y; 
-				k = x;
-				for (int i = 0; i < 4; i++)
+				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 					if (i == 2)
 					{
@@ -263,9 +253,7 @@ void Tetromino_Yellow::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 			if (x >50 && ReturnBoardValue(x -53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0)
 			{
 				x -= v;
-				j = y;
-				k = x;
-				for (int i = 0; i < 4; i++)
+				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 					if (i == 2)
 					{
@@ -288,9 +276,8 @@ void Tetromino_Yellow::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 			if (y < 700 && ReturnBoardValue(x , y+81.0f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0)
 			{
 				y += 40.5f;
-				j = y;
-				k = x;
-				for (int i = 0; i < 4; i++)
+
+				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 					if (i == 2)
 					{
@@ -314,9 +301,8 @@ void Tetromino_Yellow::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 			if (y < 700 && ReturnBoardValue(x, y + 81.0f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0)
 			{
 				y += 40.5f;
-				j = y;
-				k = x;
-				for (int i = 0; i < 4; i++)
+
+				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 					if (i == 2)
 					{

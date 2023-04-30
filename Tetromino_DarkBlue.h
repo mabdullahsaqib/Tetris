@@ -256,6 +256,14 @@ void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& color, RectangleSha
 				tetrominos.setPosition(a, b);
 				window.draw(tetrominos);
 			}
+			else if (Board[i][j] == 7)
+			{
+				color.loadFromFile("Textures/Tetromino_red_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
 
 			a += 53.0f;
 		}

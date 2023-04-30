@@ -90,7 +90,7 @@ void Well::Board(RenderWindow& window)
 			delete[]blocks;
 			delete[]tetromino;
 			CheckForMatch();
-			random = 6;//(rand() % 7) + 1;
+			random = (rand() % 7) + 1;
 			if (random == 1)
 				tetromino = new Tetromino_Blue;
 			else if (random == 2)

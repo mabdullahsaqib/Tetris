@@ -44,11 +44,11 @@ bool Tetromino_Purple::CheckBoard(float x, float y, int rotated)
 	int check = 0;
 	if (rotated == 0)
 	{
-		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 81.0f) != 0 || ReturnBoardValue(x + 106.0f, y + 81.0f) != 0)
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y) != 0)
 			check++;
-		if (ReturnBoardValue(x + 106.0f, y) != 0 || ReturnBoardValue(x + 159.0f, y + 40.5f) != 0)
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 106.0f, y - 40.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x, y + 40.5f) != 0)
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 106.0f, y - 40.5f) != 0)
 			check++;
 		if (check == 3)
 			return false;
@@ -56,11 +56,11 @@ bool Tetromino_Purple::CheckBoard(float x, float y, int rotated)
 	}
 	else if (rotated == 1)
 	{
-		if (ReturnBoardValue(x, y + 81.0f) != 0 || ReturnBoardValue(x - 53.0f, y + 121.5f) != 0)
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y + 81.0f) != 0)
 			check++;
-		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x, y + 81.0f) != 0)
+		if (ReturnBoardValue(x + 106.0f, y - 40.5f) != 0 || ReturnBoardValue(x + 106.0f, y) != 0 || ReturnBoardValue(x + 106.0f, y + 40.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 106.0f, y + 40.5f) != 0 || ReturnBoardValue(x - 106.0f, y + 81.0f) != 0)
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x, y - 40.5f) != 0 || ReturnBoardValue(x, y + 40.5f) != 0)
 			check++;
 		if (check == 3)
 			return false;
@@ -68,11 +68,11 @@ bool Tetromino_Purple::CheckBoard(float x, float y, int rotated)
 	}
 	else if (rotated == 2)
 	{
-		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x - 53.0f, y + 40.5f) != 0 || ReturnBoardValue(x - 106.0f, y) != 0)
+		if (ReturnBoardValue(x, y + 81.0f) != 0 || ReturnBoardValue(x - 53.0f, y + 81.0f) != 0 || ReturnBoardValue(x + 53.0f, y + 81.0f) != 0)
 			check++;
-		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x, y - 40.5f) != 0)
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 106.0f, y + 40.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x - 106.0f, y) != 0 || ReturnBoardValue(x - 159.0f, y - 40.5f) != 0)
+		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 106.0f, y + 40.5f) != 0)
 			check++;
 		if (check == 3)
 			return false;
@@ -80,11 +80,11 @@ bool Tetromino_Purple::CheckBoard(float x, float y, int rotated)
 	}
 	else if (rotated == 3)
 	{
-		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x + 53.0f, y) != 0)
+		if (ReturnBoardValue(x, y + 40.5f) != 0 || ReturnBoardValue(x - 53.0f, y + 81.0f) != 0)
 			check++;
-		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x + 106.0f, y - 40.5f) != 0 || ReturnBoardValue(x + 106.0f, y - 81.0f) != 0)
+		if (ReturnBoardValue(x + 53.0f, y) != 0 || ReturnBoardValue(x, y - 40.5f) != 0 || ReturnBoardValue(x, y + 40.5f) != 0)
 			check++;
-		if (ReturnBoardValue(x - 53.0f, y) != 0 || ReturnBoardValue(x - 53.0f, y - 40.5f) != 0 || ReturnBoardValue(x, y - 81.0f) != 0)
+		if (ReturnBoardValue(x - 106.0f, y - 40.5f) != 0 || ReturnBoardValue(x - 106.0f, y) != 0 || ReturnBoardValue(x - 106.0f, y + 40.5f) != 0)
 			check++;
 		if (check == 3)
 			return false;
@@ -95,12 +95,12 @@ bool Tetromino_Purple::CheckBoard(float x, float y, int rotated)
 void Tetromino_Purple::CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v)
 {
 
-	for (int i = 0, j = 8.0f, k = 162.0f; i < 4; i++)
+	for (int i = 0, j = 48.5f, k = 215.0f; i < 4; i++)
 	{
 
-		if (i == 3)
+		if (i == 1)
 		{
-			j += 40.5f;
+			j -= 40.5f;
 			k -= 106.0f;
 		}
 		blocks[i].setScale(Vector2f(0.55f, 0.5f));
@@ -108,8 +108,8 @@ void Tetromino_Purple::CreateTetromino(Sprite* blocks, Texture texture, float& x
 		blocks[i].setPosition(k, j);
 		k += 53.0f;
 	}
-	x = 162.0f;
-	y = 8.0f;
+	x = 215.0f;
+	y = 48.5f;
 	v = 53.0f;
 	z = 8.0f;
 }
@@ -158,30 +158,30 @@ void Tetromino_Purple::SetBoardValue(float x, float y, int rotated)
 				if (rotated == 0)
 				{
 					Board[i][j] = tetromino;
-					Board[i][j + 1] = tetromino;
-					Board[i + 1][j + 1] = tetromino;
-					Board[i + 1][j + 2] = tetromino;
+					Board[i - 1][j - 1] = tetromino;
+					Board[i - 1][j] = tetromino;
+					Board[i - 1][j + 1] = tetromino;
 				}
 				else if (rotated == 1)
 				{
 					Board[i][j] = tetromino;
-					Board[i + 1][j] = tetromino;
-					Board[i + 1][j - 1] = tetromino;
-					Board[i + 2][j - 1] = tetromino;
+					Board[i - 1][j + 1] = tetromino;
+					Board[i][j + 1] = tetromino;
+					Board[i + 1][j + 1] = tetromino;
 				}
 				else if (rotated == 2)
 				{
 					Board[i][j] = tetromino;
-					Board[i][j - 1] = tetromino;
-					Board[i - 1][j - 1] = tetromino;
-					Board[i - 1][j - 2] = tetromino;
+					Board[i + 1][j - 1] = tetromino;
+					Board[i + 1][j] = tetromino;
+					Board[i + 1][j + 1] = tetromino;
 				}
 				else if (rotated == 3)
 				{
 					Board[i][j] = tetromino;
-					Board[i - 1][j] = tetromino;
-					Board[i - 1][j + 1] = tetromino;
-					Board[i - 2][j + 1] = tetromino;
+					Board[i - 1][j - 1] = tetromino;
+					Board[i][j - 1] = tetromino;
+					Board[i + 1][j - 1] = tetromino;
 				}
 				return;
 			}
@@ -292,17 +292,17 @@ void Tetromino_Purple::RotateTetromino(RenderWindow& window, Sprite tetromino[],
 
 		if (rotation == 0)
 		{
-			if (rotation == 0 && x < 420 && y < 777 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x + 106.0f, y + 40.5f) == 0)
+			if (rotation == 0 && x < 470 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x - 53.0f, y-40.5f) == 0 && ReturnBoardValue(x , y - 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y - 40.5f) == 0 )
 			{
-				if (x < 420 && y < 777)
+				if (x < 470)
 				{
 					for (int i = 0, j = y, k = x; i < 4; i++)
 					{
 
-						if (i == 2)
+						if (i == 1)
 						{
-							j += 40.5f;
-							k -= 53.0f;
+							j -= 40.5f;
+							k -= 106.0f;
 						}
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 						tetromino[i].setTexture(purple);
@@ -318,17 +318,17 @@ void Tetromino_Purple::RotateTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		if (rotation == 1)
 		{
-			if (rotation == 1 && x > 50 && y < 730 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 81.0f) == 0)
+			if (rotation == 1 && y < 777 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x+53.0f, y - 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y ) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0)
 			{
-				if (x > 50 && y < 730)
+				if (y < 777)
 				{
 					for (int i = 0, j = y, k = x; i < 4; i++)
 					{
 
-						if (i == 2)
+						if (i == 1)
 						{
-							j -= 40.5f;
-							k -= 53.0f;
+							j -= 81.0f;
+							k += 53.0f;
 						}
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 						tetromino[i].setTexture(purple);
@@ -345,22 +345,22 @@ void Tetromino_Purple::RotateTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		if (rotation == 2)
 		{
-			if (rotation == 2 && x > 100 && y > 10 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y - 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y - 40.5f) == 0)
+			if (rotation == 2 && x > 10 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x + 53.0f, y+40.5f) == 0 && ReturnBoardValue(x , y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0)
 			{
-				if (x > 100 && y > 10)
+				if (x > 10)
 				{
 					for (int i = 0, j = y, k = x; i < 4; i++)
 					{
 
-						if (i == 2)
+						if (i == 1)
 						{
-							j -= 40.5f;
-							k += 53.0f;
+							j += 40.5f;
+							k -= 106.0f;
 						}
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 						tetromino[i].setTexture(purple);
 						tetromino[i].setPosition(k, j);
-						k -= 53.0f;
+						k += 53.0f;
 					}
 				}
 				else
@@ -371,24 +371,23 @@ void Tetromino_Purple::RotateTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		if (rotation == 3)
 		{
-			if (rotation == 3 && y > 50 && x < 480 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x, y - 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y - 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y - 81.0f) == 0)
+			if (rotation == 3 && y > 10 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x-53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y ) == 0 && ReturnBoardValue(x - 53.0f, y -40.5f) == 0)
 			{
-				if (y > 50 && x < 480)
+				if (y > 10)
 				{
 					for (int i = 0, j = y, k = x; i < 4; i++)
 					{
 
-						if (i == 2)
+						if (i == 1)
 						{
-							j += 40.5f;
-							k += 53.0f;
+							j -= 81.0f;
+							k -= 53.0f;
 						}
 						tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 						tetromino[i].setTexture(purple);
 						tetromino[i].setPosition(k, j);
-						j -= 40.5f;
+						j += 40.5f;
 					}
-
 				}
 				else
 					rotation = 2;
@@ -408,16 +407,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 	{
 		if (rotation == 0)
 		{
-			if (x < 370 && ReturnBoardValue(x + 106.0f, y) == 0 && ReturnBoardValue(x + 159.0f, y + 40.5f) == 0)
+			if (x < 420 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y - 40.5f) == 0)
 			{
 				x += v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k -= 53.0f;
+						j -= 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -428,16 +427,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 1)
 		{
-			if (x < 470 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x, y + 81.0f) == 0)
+			if (x < 420 && ReturnBoardValue(x + 106.0f, y-40.5f) == 0 && ReturnBoardValue(x + 106.0f, y ) == 0 && ReturnBoardValue(x+106.0f, y + 40.5f) == 0)
 			{
 				x += v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k -= 53.0f;
+						j -= 81.0f;
+						k += 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -449,41 +448,41 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 2)
 		{
-			if (x < 470 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x, y - 40.5f) == 0)
+			if (x < 420 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x +106.0f, y + 40.5f) == 0)
 			{
 				x += v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k += 53.0f;
+						j += 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					k -= 53.0f;
+					k += 53.0f;
 				}
 			}
 		}
 		else if (rotation == 3)
 		{
-			if (x < 420 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y - 40.5f) == 0 && ReturnBoardValue(x + 106.0f, y - 81.0f) == 0)
+			if (x < 470 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x , y - 40.5f) == 0 && ReturnBoardValue(x , y + 40.5f) == 0)
 			{
 				x += v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k += 53.0f;
+						j -= 81.0f;
+						k -= 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					j -= 40.5f;
+					j += 40.5f;
 				}
 			}
 		}
@@ -493,16 +492,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 	{
 		if (rotation == 0)
 		{
-			if (x > 10 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x, y + 40.5f) == 0)
+			if (x > 100 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x-106.0f, y - 40.5f) == 0)
 			{
 				x -= v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k -= 53.0f;
+						j -= 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -513,16 +512,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 1)
 		{
-			if (x > 60 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 106.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y + 81.0f) == 0)
+			if (x > 10 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x , y - 40.5f) == 0 && ReturnBoardValue(x , y + 40.5f) == 0)
 			{
 				x -= v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k -= 53.0f;
+						j -= 81.0f;
+						k += 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -534,41 +533,42 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 2)
 		{
-			if (x > 150 && ReturnBoardValue(x - 106.0f, y) == 0 && ReturnBoardValue(x - 159.0f, y - 40.5f) == 0)
+			if (x > 100 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 106.0f, y + 40.5f) == 0)
 			{
 				x -= v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k += 53.0f;
+						j += 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					k -= 53.0f;
+					k += 53.0f;
 				}
+
 			}
 		}
 		else if (rotation == 3)
 		{
-			if (x > 10 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y - 40.5f) == 0 && ReturnBoardValue(x, y - 81.0f) == 0)
+			if (x > 100 && ReturnBoardValue(x - 106.0f, y-40.5f) == 0 && ReturnBoardValue(x - 106.0f, y) == 0 && ReturnBoardValue(x-106.0f, y + 40.5f) == 0)
 			{
 				x -= v;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k += 53.0f;
+						j -= 81.0f;
+						k -= 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					j -= 40.5f;
+					j += 40.5f;
 				}
 			}
 		}
@@ -578,16 +578,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 	{
 		if (rotation == 0)
 		{
-			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0 && ReturnBoardValue(x + 106.0f, y + 81.0f) == 0)
+			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y ) == 0 && ReturnBoardValue(x - 53.0f, y) == 0)
 			{
 				y += 40.5f;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k -= 53.0f;
+						j -= 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -598,16 +598,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 1)
 		{
-			if (y < 690 && ReturnBoardValue(x, y + 81.0f) == 0 && ReturnBoardValue(x - 53.0f, y + 121.5f) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0)
 			{
 				y += 40.5f;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k -= 53.0f;
+						j -= 81.0f;
+						k += 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -619,41 +619,42 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 2)
 		{
-			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 81.0f) == 0 && ReturnBoardValue(x - 53.0f, y + 81.0f) == 0 && ReturnBoardValue(x +53.0f, y+81.0f) == 0)
 			{
 				y += 40.5;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k += 53.0f;
+						j += 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					k -= 53.0f;
+					k += 53.0f;
 				}
+
 			}
 		}
 		else if (rotation == 3)
 		{
-			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y+81.0f) == 0)
 			{
 				y += 40.5f;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k += 53.0f;
+						j -= 81.0f;
+						k -= 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					j -= 40.5f;
+					j += 40.5f;
 				}
 			}
 		}
@@ -664,16 +665,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 	{
 		if (rotation == 0)
 		{
-			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0 && ReturnBoardValue(x + 106.0f, y + 81.0f) == 0)
+			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x - 53.0f, y) == 0)
 			{
 				y += 40.5f;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k -= 53.0f;
+						j -= 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -686,16 +687,16 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 1)
 		{
-			if (y < 690 && ReturnBoardValue(x, y + 81.0f) == 0 && ReturnBoardValue(x - 53.0f, y + 121.5f) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0)
 			{
 				y += 40.5f;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k -= 53.0f;
+						j -= 81.0f;
+						k += 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
@@ -708,21 +709,21 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 2)
 		{
-			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 40.5f) == 0 && ReturnBoardValue(x - 106.0f, y) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 81.0f) == 0 && ReturnBoardValue(x - 53.0f, y + 81.0f) == 0 && ReturnBoardValue(x + 53.0f, y + 81.0f) == 0)
 			{
 				y += 40.5;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j -= 40.5f;
-						k += 53.0f;
+						j += 40.5f;
+						k -= 106.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					k -= 53.0f;
+					k += 53.0f;
 				}
 			}
 			else
@@ -730,21 +731,21 @@ void Tetromino_Purple::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		else if (rotation == 3)
 		{
-			if (y < 777 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x + 53.0f, y) == 0)
+			if (y < 730 && ReturnBoardValue(x, y + 40.5f) == 0 && ReturnBoardValue(x - 53.0f, y + 81.0f) == 0)
 			{
 				y += 40.5f;
 				for (int i = 0, j = y, k = x; i < 4; i++)
 				{
 
-					if (i == 2)
+					if (i == 1)
 					{
-						j += 40.5f;
-						k += 53.0f;
+						j -= 81.0f;
+						k -= 53.0f;
 					}
 					tetromino[i].setScale(Vector2f(0.55f, 0.5f));
 					tetromino[i].setTexture(purple);
 					tetromino[i].setPosition(k, j);
-					j -= 40.5f;
+					j += 40.5f;
 				}
 			}
 			else

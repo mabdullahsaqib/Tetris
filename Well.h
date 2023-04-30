@@ -9,6 +9,7 @@
 #include"Tetromino_Orange.h"
 #include"Tetromino_Yellow.h"
 #include"Tetromino_Green.h"
+#include"Tetromino_Purple.h"
 #include"Tetromino_Red.h"
 using namespace sf;
 
@@ -89,7 +90,7 @@ void Well::Board(RenderWindow& window)
 			delete[]blocks;
 			delete[]tetromino;
 			CheckForMatch();
-			random = (rand() % 7) + 1;
+			random = 6;//(rand() % 7) + 1;
 			if (random == 1)
 				tetromino = new Tetromino_Blue;
 			else if (random == 2)
@@ -100,7 +101,9 @@ void Well::Board(RenderWindow& window)
 				tetromino = new Tetromino_Yellow;
 			else if (random == 5)
 				tetromino = new Tetromino_Green;
-			else if (random == 7 || random == 6)
+			else if (random == 6)
+				tetromino = new Tetromino_Purple;
+			else if (random == 7)
 				tetromino = new Tetromino_Red;
 
 			tetromino->SetTetromino(random);

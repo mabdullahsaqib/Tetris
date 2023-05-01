@@ -45,7 +45,7 @@ void Well::Board(RenderWindow& window)
 	RectangleShape bg;
 	bg.setSize(Vector2f(840.0f, 820.0f));
 	bg.setPosition(0.0f, 0.0f);
-	bg.setFillColor(Color(30, 30, 30));
+	bg.setFillColor(Color(10,10,10));
 
 	//Sets the Grid for the game
 	RectangleShape Grid;
@@ -62,7 +62,7 @@ void Well::Board(RenderWindow& window)
 
 	//Sets the texture of Tetromino
 	Texture texture;
-	
+
 
 	Sprite* blocks;
 	blocks = nullptr;
@@ -155,7 +155,7 @@ void Well::Board(RenderWindow& window)
 		tetromino->SetBoard(well);
 
 		window.clear();
-		//window.draw(bg);
+		window.draw(bg);
 		tetromino->Draw(window, texture, bg, Grid, blocks);
 		Draw(window, Grid);
 		ScoreKeeper(window, 0);

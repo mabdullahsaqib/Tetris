@@ -18,6 +18,7 @@ public:
 	virtual void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard) = 0;
 	virtual void GetBoard(int array[][10]) = 0;
 	virtual void SetBoard(int array[][10]) = 0;
+	virtual void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])=0;
 };
 
 Tetromino::Tetromino()

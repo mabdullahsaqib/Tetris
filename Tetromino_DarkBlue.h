@@ -20,7 +20,7 @@ public:
 	void SetBoardValue(float x, float y, int rotated);
 	void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
 	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)override;
-	void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[]);
+	void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])override;
 };
 
 Tetromino_DarkBlue::Tetromino_DarkBlue()
@@ -198,92 +198,12 @@ void Tetromino_DarkBlue::SetBoardValue(float x, float y, int rotated)
 
 void Tetromino_DarkBlue::Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])
 {
-	Sprite tetrominos;
-	tetrominos.setScale(Vector2f(0.55f, 0.5f));
-	tetrominos.setTexture(color);
-
-	float a = 3.0f, b = 8.0f;
-
-
-	window.clear();
 	for (int i = 0; i < 4; i++)
 	{
+		tetromino[i].setTexture(color);
 		window.draw(tetromino[i]);
 	}
-
-	for (int i = 0; i < 20; i++)
-	{
-		a = 3.0f;
-		for (int j = 0; j < 10; j++)
-		{
-			if (Board[i][j] == 1)
-			{
-				color.loadFromFile("Textures/Tetromino_blue_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-			else if (Board[i][j] == 2)
-			{
-				color.loadFromFile("Textures/Tetromino_darkblue_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-			else if (Board[i][j] == 3)
-			{
-				color.loadFromFile("Textures/Tetromino_orange_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-			else if (Board[i][j] == 4)
-			{
-				color.loadFromFile("Textures/Tetromino_yellow_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-			else if (Board[i][j] == 5)
-			{
-				color.loadFromFile("Textures/Tetromino_green_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-			else if (Board[i][j] == 6)
-			{
-				color.loadFromFile("Textures/Tetromino_purple_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-			else if (Board[i][j] == 7)
-			{
-				color.loadFromFile("Textures/Tetromino_red_block.png");
-				tetrominos.setTexture(color);
-				tetrominos.setScale(Vector2f(0.55f, 0.5f));
-				tetrominos.setPosition(a, b);
-				window.draw(tetrominos);
-			}
-
-			a += 53.0f;
-		}
-		b += 40.5f;
-	}
-
-	window.draw(Grid);
-	window.display();
-
-
 }
-
 
 void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture darkblue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)
 {
@@ -423,7 +343,6 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 				rotation = 2;
 		}
 	}
-	Draw(window, darkblue, bg, Grid, tetromino);
 	return;
 }
 
@@ -873,6 +792,5 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 	if (checkboard == 0)
 		SetBoardValue(x, y, rotation);
 
-	Draw(window, darkblue, bg, Grid, tetromino);
 	return;
 }

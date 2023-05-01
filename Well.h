@@ -22,7 +22,8 @@ public:
 	Well();
 	void Board(RenderWindow& window);
 	void CheckForMatch(RenderWindow& window);
-//	void ScoreKeeper(RenderWindow& window, int match);
+	void ScoreKeeper(RenderWindow& window, int match);
+	void Draw(RenderWindow& window, RectangleShape& Grid);
 };
 
 Well::Well()
@@ -153,7 +154,12 @@ void Well::Board(RenderWindow& window)
 		tetromino->MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
 		tetromino->SetBoard(well);
 
-	//	ScoreKeeper(window, 0);
+		window.clear();
+		//window.draw(bg);
+		tetromino->Draw(window, texture, bg, Grid, blocks);
+		Draw(window, Grid);
+		ScoreKeeper(window, 0);
+		window.display();
 	}
 	return;
 }
@@ -170,7 +176,7 @@ void Well::CheckForMatch(RenderWindow& window)
 		}
 		if (match == 10)
 		{
-//			ScoreKeeper(window,match);
+		ScoreKeeper(window,match);
 			for (int j = 0; j < 10; j++)
 			{
 				well[i][j] = 0;
@@ -189,19 +195,94 @@ void Well::CheckForMatch(RenderWindow& window)
 	}
 }
 
-//void Well::ScoreKeeper(RenderWindow& window, int match)
-//{
-//	Font font;
-//	font.loadFromFile("Fonts/Lobster_1.3.otf");
-//	Text Score("Score: " + std::to_string(score),font,25);
-//	Score.Underlined;
-//	Score.setPosition(600.0f, 200.0f);
-//	if (match == 10)
-//	{
-//		linescounter++;
-//		score += 100;
-//	}
-//	std::cout << "Score = " << score << "  || Lines Completed = "<<linescounter<<"\r";
-//	window.draw(Score);
-//	window.display();
-//}
+void Well::Draw(RenderWindow& window, RectangleShape& Grid)
+{
+	Sprite tetrominos;
+	Texture color;
+	float a = 3.0f, b = 8.0f;
+
+	for (int i = 0; i < 20; i++)
+	{
+		a = 3.0f;
+		for (int j = 0; j < 10; j++)
+		{
+			if (well[i][j] == 1)
+			{
+				color.loadFromFile("Textures/Tetromino_blue_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (well[i][j] == 2)
+			{
+				color.loadFromFile("Textures/Tetromino_darkblue_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (well[i][j] == 3)
+			{
+				color.loadFromFile("Textures/Tetromino_orange_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (well[i][j] == 4)
+			{
+				color.loadFromFile("Textures/Tetromino_yellow_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (well[i][j] == 5)
+			{
+				color.loadFromFile("Textures/Tetromino_green_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (well[i][j] == 6)
+			{
+				color.loadFromFile("Textures/Tetromino_purple_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+			else if (well[i][j] == 7)
+			{
+				color.loadFromFile("Textures/Tetromino_red_block.png");
+				tetrominos.setTexture(color);
+				tetrominos.setScale(Vector2f(0.55f, 0.5f));
+				tetrominos.setPosition(a, b);
+				window.draw(tetrominos);
+			}
+
+			a += 53.0f;
+		}
+		b += 40.5f;
+	}
+	window.draw(Grid);
+	return;
+}
+
+void Well::ScoreKeeper(RenderWindow& window, int match)
+{
+	Font font;
+	font.loadFromFile("Fonts/Lobster_1.3.otf");
+	Text Score("Score: " + std::to_string(score),font,25);
+	Score.Underlined;
+	Score.setPosition(600.0f, 200.0f);
+	if (match == 10)
+	{
+		linescounter++;
+		score += 100;
+	}
+	std::cout << "Score = " << score << "  || Lines Completed = "<<linescounter<<"\r";
+	window.draw(Score);
+}

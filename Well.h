@@ -153,7 +153,7 @@ void Well::Board(RenderWindow& window)
 		tetromino->MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
 		tetromino->SetBoard(well);
 
-		ScoreKeeper(window, 0);
+	//	ScoreKeeper(window, 0);
 	}
 	return;
 }

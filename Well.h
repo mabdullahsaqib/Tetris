@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include<Windows.h>
-#include<time.h>
 #include<SFML/Graphics.hpp>
 #include"Tetromino.h"
 #include"Tetromino_Blue.h"
@@ -17,10 +16,13 @@ class Well
 {
 private:
 	int well[20][10];
+	int score;
+	int linescounter;
 public:
 	Well();
 	void Board(RenderWindow& window);
-	void CheckForMatch();
+	void CheckForMatch(RenderWindow& window);
+//	void ScoreKeeper(RenderWindow& window, int match);
 };
 
 Well::Well()
@@ -32,6 +34,8 @@ Well::Well()
 			well[i][j] = 0;
 		}
 	}
+	score = 0;
+	linescounter = 0;
 }
 
 void Well::Board(RenderWindow& window)
@@ -89,7 +93,7 @@ void Well::Board(RenderWindow& window)
 		{
 			delete[]blocks;
 			delete[]tetromino;
-			CheckForMatch();
+			CheckForMatch(window);
 			random = (rand() % 7) + 1;
 			if (random == 1)
 				tetromino = new Tetromino_Blue;
@@ -149,13 +153,14 @@ void Well::Board(RenderWindow& window)
 		tetromino->MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
 		tetromino->SetBoard(well);
 
+		ScoreKeeper(window, 0);
 	}
 	return;
 }
 
-void Well::CheckForMatch()
+void Well::CheckForMatch(RenderWindow& window)
 {
-	int match = 0, l;
+	int match = 0, linescounter = 0, l;
 	for (int i = 0; i < 20; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -165,6 +170,7 @@ void Well::CheckForMatch()
 		}
 		if (match == 10)
 		{
+//			ScoreKeeper(window,match);
 			for (int j = 0; j < 10; j++)
 			{
 				well[i][j] = 0;
@@ -182,3 +188,20 @@ void Well::CheckForMatch()
 		match = 0;
 	}
 }
+
+//void Well::ScoreKeeper(RenderWindow& window, int match)
+//{
+//	Font font;
+//	font.loadFromFile("Fonts/Lobster_1.3.otf");
+//	Text Score("Score: " + std::to_string(score),font,25);
+//	Score.Underlined;
+//	Score.setPosition(600.0f, 200.0f);
+//	if (match == 10)
+//	{
+//		linescounter++;
+//		score += 100;
+//	}
+//	std::cout << "Score = " << score << "  || Lines Completed = "<<linescounter<<"\r";
+//	window.draw(Score);
+//	window.display();
+//}

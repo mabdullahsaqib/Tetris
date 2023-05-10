@@ -18,11 +18,12 @@ private:
 	int well[20][10];
 	int score;
 	int linescounter;
+	int level;
 public:
 	Well();
 	void Board(RenderWindow& window);
-	void CheckForMatch(RenderWindow& window);
-	void ScoreKeeper(RenderWindow& window, int match);
+	void CheckForMatch(RenderWindow& window, int& lvl, float& levelspeed);
+	void ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelspeed);
 	void Draw(RenderWindow& window, RectangleShape& Grid);
 };
 
@@ -37,6 +38,7 @@ Well::Well()
 	}
 	score = 0;
 	linescounter = 0;
+	level = 0;
 }
 
 void Well::Board(RenderWindow& window)
@@ -63,7 +65,7 @@ void Well::Board(RenderWindow& window)
 	//Sets the texture of Tetromino
 	Texture texture;
 
-
+	//Creates a pointer to dynamically allocate a size 4 array to hold tetromino during runtime
 	Sprite* blocks;
 	blocks = nullptr;
 	
@@ -80,9 +82,8 @@ void Well::Board(RenderWindow& window)
 	bool checkboard = 0;
 	int match=0;
 	int random = 0;
-
-	window.draw(bg);
-	
+	int lvl = 0;
+	float levelspeed = 1.0;
 
 	while (window.isOpen())
 	{
@@ -94,7 +95,7 @@ void Well::Board(RenderWindow& window)
 		{
 			delete[]blocks;
 			delete[]tetromino;
-			CheckForMatch(window);
+			CheckForMatch(window, lvl , levelspeed);
 			random = (rand() % 7) + 1;
 			if (random == 1)
 				tetromino = new Tetromino_Blue;
@@ -151,20 +152,20 @@ void Well::Board(RenderWindow& window)
 
 
 		tetromino->GetBoard(well);
-		tetromino->MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard);
+		tetromino->MoveTetromino(window, blocks, texture, rotation, x, y, z, v, switchtime, elaspedtime, bg, Grid,checkboard, levelspeed);
 		tetromino->SetBoard(well);
 
 		window.clear();
 		window.draw(bg);
 		tetromino->Draw(window, texture, bg, Grid, blocks);
 		Draw(window, Grid);
-		ScoreKeeper(window, 0);
+		ScoreKeeper(window, 0, lvl , levelspeed);
 		window.display();
 	}
 	return;
 }
 
-void Well::CheckForMatch(RenderWindow& window)
+void Well::CheckForMatch(RenderWindow& window, int& lvl, float& levelspeed)
 {
 	int match = 0, linescounter = 0, l;
 	for (int i = 0; i < 20; i++)
@@ -176,7 +177,7 @@ void Well::CheckForMatch(RenderWindow& window)
 		}
 		if (match == 10)
 		{
-		ScoreKeeper(window,match);
+		ScoreKeeper(window,match, lvl ,levelspeed);
 			for (int j = 0; j < 10; j++)
 			{
 				well[i][j] = 0;
@@ -271,18 +272,55 @@ void Well::Draw(RenderWindow& window, RectangleShape& Grid)
 	return;
 }
 
-void Well::ScoreKeeper(RenderWindow& window, int match)
+void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelspeed)
 {
+
+	RectangleShape Border;
+	Border.setSize(Vector2f(150.0f, 60.0f));
+	Border.setFillColor(Color(210, 210, 210));
+	for (int i = 0, y = 290.0f; i < 3; i++, y+=200.0f)
+	{
+		Border.setPosition(600.0f, y);
+		window.draw(Border);
+	}
+
 	Font font;
 	font.loadFromFile("Fonts/Lobster_1.3.otf");
-	Text Score("Score: " + std::to_string(score),font,25);
-	Score.Underlined;
-	Score.setPosition(600.0f, 200.0f);
+
 	if (match == 10)
 	{
 		linescounter++;
 		score += 100;
+		lvl++;
 	}
-	std::cout << "Score = " << score << "  || Lines Completed = "<<linescounter<<"\r";
+
+	Text Score("Score: " + std::to_string(score), font, 25);
+	Score.setPosition(620.0f, 500.0f);
+	Score.setFillColor(Color::Black);
+
+	Text Lines("Lines: " + std::to_string(linescounter), font, 25);
+	Lines.setPosition(620.0f, 700.0f);
+	Lines.setFillColor(Color::Black);
+
+	if (lvl == 10)
+	{
+		level++;
+		lvl = 0;
+		levelspeed -= 0.1;
+		if (level == 8)
+		{
+			level = 0;
+			levelspeed = 1.0;
+		}
+	}
+	Text Level("Level# " + std::to_string(level), font, 25);
+	Level.setPosition(620.0f, 300.0f);
+	Level.setFillColor(Color::Black);
+
+
+	std::cout << "Score = " << score << "  || Lines Completed = " << linescounter << "  || Level  = " << level << "\r";
+
+	window.draw(Level);
 	window.draw(Score);
+	window.draw(Lines);
 }

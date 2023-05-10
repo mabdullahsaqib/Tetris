@@ -19,7 +19,7 @@ public:
 	int ReturnBoardValue(float x, float y);
 	void SetBoardValue(float x, float y, int rotated);
 	void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture red, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid)override;
-	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture red, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)override;
+	void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture red, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard, float levelspeed)override;
 	void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])override;
 };
 
@@ -321,7 +321,7 @@ void Tetromino_Red::RotateTetromino(RenderWindow& window, Sprite tetromino[], Te
 	return;
 }
 
-void Tetromino_Red::MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture red, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard)
+void Tetromino_Red::MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture red, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard, float levelspeed)
 {
 
 	if (Keyboard::isKeyPressed(Keyboard::Key::Right) && switchtime > 0.2)
@@ -580,7 +580,7 @@ void Tetromino_Red::MoveTetromino(RenderWindow& window, Sprite tetromino[], Text
 		switchtime = 0;
 	}
 	checkboard = CheckBoard(x, y, rotation);
-	if (elaspedtime > 1.0)
+	if (elaspedtime > levelspeed)
 	{
 		if (rotation == 0)
 		{

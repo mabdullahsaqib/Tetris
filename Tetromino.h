@@ -15,7 +15,7 @@ public:
 	void SetTexture(Texture& texture);
 	virtual void CreateTetromino(Sprite* blocks, Texture texture, float& x, float& y, float& z, float& v) = 0;
 	virtual void RotateTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, int& rotation, float& x, float& y, float& z, float& v, RectangleShape& bg, RectangleShape& Grid) =0;
-	virtual void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard) = 0;
+	virtual void MoveTetromino(RenderWindow& window, Sprite tetromino[], Texture blue, int& rotation, float& x, float& y, float& z, float& v, float& switchtime, float& elaspedtime, RectangleShape& bg, RectangleShape& Grid, bool& checkboard, float levelspeed) = 0;
 	virtual void GetBoard(int array[][10]) = 0;
 	virtual void SetBoard(int array[][10]) = 0;
 	virtual void Draw(RenderWindow& window, Texture& color, RectangleShape& bg, RectangleShape& Grid, Sprite tetromino[])=0;

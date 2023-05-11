@@ -151,6 +151,9 @@
     <ClInclude Include="Tetromino_Yellow.h" />
     <ClInclude Include="Well.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="HighScore.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

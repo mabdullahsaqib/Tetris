@@ -1,6 +1,8 @@
 #pragma once
 #include<iostream>
 #include<Windows.h>
+#include<string.h>
+#include<fstream>
 #include<SFML/Graphics.hpp>
 #include"Tetromino.h"
 #include"Tetromino_Blue.h"
@@ -19,12 +21,16 @@ private:
 	int score;
 	int linescounter;
 	int level;
+	char player[50];
+
 public:
 	Well();
 	void Board(RenderWindow& window);
 	void CheckForMatch(RenderWindow& window, int& lvl, float& levelspeed);
 	void ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelspeed);
 	void Draw(RenderWindow& window, RectangleShape& Grid);
+	void Player(RenderWindow& window);
+	void HighScore(RenderWindow& window);
 };
 
 Well::Well()
@@ -38,7 +44,7 @@ Well::Well()
 	}
 	score = 0;
 	linescounter = 0;
-	level = 0;
+	level = 1;
 }
 
 void Well::Board(RenderWindow& window)
@@ -309,7 +315,7 @@ void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelsp
 		levelspeed -= 0.1;
 		if (level == 8)
 		{
-			level = 0;
+			level = 1;
 			levelspeed = 1.0;
 		}
 	}
@@ -323,4 +329,29 @@ void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelsp
 	window.draw(Level);
 	window.draw(Score);
 	window.draw(Lines);
+}
+
+void Well::Player(RenderWindow& window)
+{
+	Font font;
+	font.loadFromFile("Fonts/Lobster_1.3.otf");
+
+	RectangleShape Border;
+	Border.setSize(Vector2f(520.0f, 250.0f));
+	Border.setPosition(Vector2f(170.0f, 280.0f));
+	Border.setFillColor(Color(210, 210, 210));
+
+	Text NameBox("ENTER YOUR NAME", font, 50);
+	NameBox.setPosition(200.0f, 300.0f);
+	NameBox.setFillColor(Color::Black);
+
+	std::ofstream out;
+	out.open("HighScore.txt");
+	out << player;
+}
+
+void Well::HighScore(RenderWindow& window)
+{
+
+
 }

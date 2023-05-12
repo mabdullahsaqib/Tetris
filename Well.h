@@ -139,6 +139,7 @@ void Well::Board(RenderWindow& window)
 			{
 				delete[]tetromino;
 				Sleep(1000);
+				HighScore(window);
 				window.close();
 				std::cout << "\n\nGame Over!!!!\n\n";
 			}
@@ -415,14 +416,44 @@ void Well::Player(RenderWindow& window, Event& e)
 		window.draw(input);
 		window.display();
 	}
-	std::ofstream out;
-	out.open("HighScore.txt");
-	out << player;
-	out.close();
 }
 
 void Well::HighScore(RenderWindow& window)
 {
+	std::string Names[5];
+	int Scores[5];
+	std::ifstream in("HighScore.txt");
+	
+	for (int i = 0; i < 5; i++)
+	{
+		in >> Names[i];
+		in >> Scores[i];
+		std::cout << Names[i] << " " << Scores[i]<< std::endl;
+	}
 
+	int max_index = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		if (score >= Scores[i])
+		{
+			max_index = i;
+			break;
+		}
+	}
 
+	std::ofstream out("HighScore.txt");
+
+	for (int i = 0, j =0; i < 5; i++)
+	{
+		if (i != max_index)
+		{
+			out << Names[j] << " " << Scores[j] << std::endl;
+			j++;
+		}
+		else
+		{
+			out << player << " " << score << std::endl;
+		}
+	}
+	out.close();
 }

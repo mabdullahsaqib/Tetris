@@ -1,1 +1,5 @@
-jojo
+Abdullah 10800
+Whyisit 4000
+NotWorking 1000
+PakkaFinal 600
+Letstry 500

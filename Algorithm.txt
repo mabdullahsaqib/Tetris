@@ -1,0 +1,14 @@
+Currently i'm only just displaying the blocks
+x is the x coordinate and is incremented by v
+y is the y coordinate and is incremented by 40.5
+z is the variable used to put the block on the values following the initial one
+it is resetted to y everytime 
+so to check and implement indices in the board array
+we first create a check function to check the indices before moving the block 
+the indices at the start will all be 0 
+then as the block continues to move and as it reaches y coordinate of 777.5 we stop it
+check the rotatiom and the block type
+and then use the setboard function to set the value in the board
+once the values are set , the sprite dynamic array will be deleted and a new tetromino will begin to fall
+if the board has values greater than 0 in a row
+the row disappears

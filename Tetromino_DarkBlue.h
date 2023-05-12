@@ -245,7 +245,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 			else
 				rotation = 3;
 		}
-		if (rotation == 1)
+		else if (rotation == 1)
 		{
 			if (rotation == 1 && x > 100 && y > 45 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x - 53.0f, y) == 0 && ReturnBoardValue(x - 106.0f, y) == 0 && ReturnBoardValue(x - 106.0f, y - 40.5) == 0)
 			{
@@ -278,7 +278,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 			else
 				rotation = 0;
 		}
-		if (rotation == 2)
+		else if (rotation == 2)
 		{
 			if (rotation == 2 && y > 50 && x < 480 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x, y - 40.5f) == 0 && ReturnBoardValue(x, y - 81.0f) == 0 && ReturnBoardValue(x + 53.0f, y - 81.0f) == 0)
 			{
@@ -309,7 +309,7 @@ void Tetromino_DarkBlue::RotateTetromino(RenderWindow& window, Sprite tetromino[
 			else
 				rotation = 1;
 		}
-		if (rotation == 3)
+		else if (rotation == 3)
 		{
 			if (rotation == 3 && y < 777.5 && x < 425 && ReturnBoardValue(x, y) == 0 && ReturnBoardValue(x + 53.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y) == 0 && ReturnBoardValue(x + 106.0f, y + 40.5) == 0)
 			{
@@ -456,7 +456,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		switchtime = 0;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
+	else if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
 	{
 		if (rotation == 0)
 		{
@@ -563,7 +563,7 @@ void Tetromino_DarkBlue::MoveTetromino(RenderWindow& window, Sprite tetromino[],
 		}
 		switchtime = 0;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.2)
+	else if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.0)
 	{
 		if (rotation == 0)
 		{

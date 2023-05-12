@@ -182,7 +182,7 @@ void Tetromino_Yellow::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		switchtime = 0;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
+	else if (Keyboard::isKeyPressed(Keyboard::Key::Left) && switchtime > 0.2)
 	{
 		if (rotation == 0)
 		{
@@ -205,7 +205,7 @@ void Tetromino_Yellow::MoveTetromino(RenderWindow& window, Sprite tetromino[], T
 		}
 		switchtime = 0;
 	}
-	if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.2)
+	else if (Keyboard::isKeyPressed(Keyboard::Key::Down) && switchtime > 0.0)
 	{
 		if (rotation == 0)
 		{

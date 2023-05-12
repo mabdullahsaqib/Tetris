@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include<Windows.h>
-#include<string.h>
 #include<fstream>
 #include<SFML/Graphics.hpp>
 #include"Tetromino.h"
@@ -21,7 +20,7 @@ private:
 	int score;
 	int linescounter;
 	int level;
-	char player[50];
+	std::string player;
 
 public:
 	Well();
@@ -29,7 +28,7 @@ public:
 	void CheckForMatch(RenderWindow& window, int& lvl, float& levelspeed);
 	void ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelspeed);
 	void Draw(RenderWindow& window, RectangleShape& Grid);
-	void Player(RenderWindow& window);
+	void Player(RenderWindow& window, Event& e);
 	void HighScore(RenderWindow& window);
 };
 
@@ -90,6 +89,7 @@ void Well::Board(RenderWindow& window)
 	int random = 0;
 	int lvl = 0;
 	float levelspeed = 1.0;
+	bool name = 0;
 
 	while (window.isOpen())
 	{
@@ -97,6 +97,14 @@ void Well::Board(RenderWindow& window)
 		deltatime = clock.restart().asSeconds();
 		switchtime += deltatime;
 		elaspedtime += deltatime;
+
+		if (name == 0)
+		{
+			Player(window, e);
+			name = 1;
+			Sleep(100);
+		}
+
 		if (checkboard == 0)
 		{
 			delete[]blocks;
@@ -135,7 +143,6 @@ void Well::Board(RenderWindow& window)
 				std::cout << "\n\nGame Over!!!!\n\n";
 			}
 		}
-		
 
 		while (window.pollEvent(e))
 		{
@@ -146,8 +153,6 @@ void Well::Board(RenderWindow& window)
 				delete[]tetromino;
 				window.close();
 				break;
-
-
 			}
 
 			tetromino->GetBoard(well);
@@ -282,11 +287,19 @@ void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelsp
 {
 
 	RectangleShape Border;
-	Border.setSize(Vector2f(150.0f, 60.0f));
 	Border.setFillColor(Color(210, 210, 210));
-	for (int i = 0, y = 290.0f; i < 3; i++, y+=200.0f)
+	for (int i = 0, y = 90.0f; i < 4; i++, y+=200.0f)
 	{
-		Border.setPosition(600.0f, y);
+		if (i == 0)
+		{
+			Border.setSize(Vector2f(280.0f, 80.0f));
+			Border.setPosition(550.0f, y);
+		}
+		else
+		{
+			Border.setSize(Vector2f(150.0f, 60.0f));
+			Border.setPosition(600.0f, y);
+		}
 		window.draw(Border);
 	}
 
@@ -312,7 +325,7 @@ void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelsp
 	{
 		level++;
 		lvl = 0;
-		levelspeed -= 0.1;
+		levelspeed -= 0.1 * levelspeed;
 		if (level == 8)
 		{
 			level = 1;
@@ -323,31 +336,89 @@ void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelsp
 	Level.setPosition(620.0f, 300.0f);
 	Level.setFillColor(Color::Black);
 
+	Text PlayerName("Player: " + player, font, 25);
+	if (player.length() > 12)
+	{
+		PlayerName.setPosition(560.0f, 110.0f);
+	}
+	else
+	{
+		PlayerName.setPosition(600.0f, 110.0f);
+	}
+	PlayerName.setFillColor(Color::Black);
 
-	std::cout << "Score = " << score << "  || Lines Completed = " << linescounter << "  || Level  = " << level << "\r";
 
+	std::cout << "Score = " << score << "  || Lines Completed = " << linescounter << "  || Level  = " << level << "  || Player Name  = " << player << "\r";
+
+	window.draw(PlayerName);
 	window.draw(Level);
 	window.draw(Score);
 	window.draw(Lines);
 }
 
-void Well::Player(RenderWindow& window)
+void Well::Player(RenderWindow& window, Event& e)
 {
+	RectangleShape Border;
+	Border.setSize(Vector2f(470.0f, 220.0f));
+	Border.setPosition(Vector2f(190.0f, 280.0f));
+	Border.setFillColor(Color(210, 210, 210));
+
 	Font font;
 	font.loadFromFile("Fonts/Lobster_1.3.otf");
 
-	RectangleShape Border;
-	Border.setSize(Vector2f(520.0f, 250.0f));
-	Border.setPosition(Vector2f(170.0f, 280.0f));
-	Border.setFillColor(Color(210, 210, 210));
+	Text NameBox("ENTER YOUR NAME", font, 40);
+	NameBox.setPosition(240.0f, 300.0f);
+	NameBox.setFillColor(Color::Red);
 
-	Text NameBox("ENTER YOUR NAME", font, 50);
-	NameBox.setPosition(200.0f, 300.0f);
-	NameBox.setFillColor(Color::Black);
+	RectangleShape TextBox;
+	TextBox.setSize(Vector2f(300.0f, 80.0f));
+	TextBox.setPosition(Vector2f(260.0f, 380.0f));
+	TextBox.setFillColor(Color(40, 40, 40));
 
+	Text input("", font, 30);
+	input.setPosition(300.0f, 400.0f);
+	input.setFillColor(Color::White);
+
+	int i = 0;
+	while (window.isOpen())
+	{
+		while (window.pollEvent(e))
+		{
+			switch (e.type)
+			{
+			case Event::Closed:
+				window.close();
+				break;
+			case Event::TextEntered:
+
+				if (Keyboard::isKeyPressed(Keyboard::Key::BackSpace) && player.length() >= 0)
+				{
+					player = player.substr(0, player.length() - 1);
+					input.setString(player);
+					i--;
+				}
+				else if (e.text.unicode < 128)
+				{
+					player += e.text.unicode;
+					input.setString(player);
+					i++;
+				}
+				break;
+			}
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Key::Enter) && player.length() > 1)
+			break;
+		window.clear();
+		window.draw(Border);
+		window.draw(TextBox);
+		window.draw(NameBox);
+		window.draw(input);
+		window.display();
+	}
 	std::ofstream out;
 	out.open("HighScore.txt");
 	out << player;
+	out.close();
 }
 
 void Well::HighScore(RenderWindow& window)

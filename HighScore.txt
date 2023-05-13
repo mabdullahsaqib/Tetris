@@ -1,5 +1,9 @@
-Abdullah 10800
-Whyisit 4000
-NotWorking 1000
-PakkaFinal 600
-Letstry 500
+Abdullah
+10800
+Whyisit
+4000
+MAS2800
+Jakpo
+600
+NotWorking
+600

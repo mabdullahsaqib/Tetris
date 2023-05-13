@@ -29,6 +29,7 @@ public:
 	void ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelspeed);
 	void Draw(RenderWindow& window, RectangleShape& Grid);
 	void Player(RenderWindow& window, Event& e);
+	void GameOver(RenderWindow& window);
 	void HighScore(RenderWindow& window);
 };
 
@@ -139,9 +140,11 @@ void Well::Board(RenderWindow& window)
 			{
 				delete[]tetromino;
 				Sleep(1000);
+				GameOver(window);
+				Sleep(2000);
 				HighScore(window);
+				while (Keyboard::isKeyPressed(Keyboard::Key::Enter) == 0);
 				window.close();
-				std::cout << "\n\nGame Over!!!!\n\n";
 			}
 		}
 
@@ -348,8 +351,7 @@ void Well::ScoreKeeper(RenderWindow& window, int match, int& lvl, float& levelsp
 	}
 	PlayerName.setFillColor(Color::Black);
 
-
-	std::cout << "Score = " << score << "  || Lines Completed = " << linescounter << "  || Level  = " << level << "  || Player Name  = " << player << "\r";
+	//std::cout << "Score = " << score << "  || Lines Completed = " << linescounter << "  || Level  = " << level << "  || Player Name  = " << player << "\r";
 
 	window.draw(PlayerName);
 	window.draw(Level);
@@ -361,23 +363,39 @@ void Well::Player(RenderWindow& window, Event& e)
 {
 	RectangleShape Border;
 	Border.setSize(Vector2f(470.0f, 220.0f));
-	Border.setPosition(Vector2f(190.0f, 280.0f));
-	Border.setFillColor(Color(210, 210, 210));
+	Border.setPosition(Vector2f(190.0f, 555.0f));
+	Border.setFillColor(Color(150, 113, 248));
 
+	Texture BackGround;
+	BackGround.loadFromFile("Textures/Tetris.jpeg");
+	Sprite bg;
+	bg.setScale(2.7,3.6);
+	bg.setPosition(0,245);
+	bg.setTexture(BackGround);
+	bg.setColor(Color(150, 150, 200));
+
+	Texture Tetris;
+	Tetris.loadFromFile("Textures/Tetris_2.jpeg");
+	Sprite title;
+	title.setScale(4.6, 3.8);
+	title.setPosition(0, 15);
+	title.setTexture(Tetris);
+	title.setColor(Color(120,120,170));
+	
 	Font font;
 	font.loadFromFile("Fonts/Lobster_1.3.otf");
 
-	Text NameBox("ENTER YOUR NAME", font, 40);
-	NameBox.setPosition(240.0f, 300.0f);
-	NameBox.setFillColor(Color::Red);
+	Text NameBox("ENTER YOUR NAME", font, 50);
+	NameBox.setPosition(220.0f, 575.0f);
+	NameBox.setFillColor(Color::White);
 
 	RectangleShape TextBox;
 	TextBox.setSize(Vector2f(300.0f, 80.0f));
-	TextBox.setPosition(Vector2f(260.0f, 380.0f));
+	TextBox.setPosition(Vector2f(260.0f, 655.0f));
 	TextBox.setFillColor(Color(40, 40, 40));
 
 	Text input("", font, 30);
-	input.setPosition(300.0f, 400.0f);
+	input.setPosition(300.0f, 675.0f);
 	input.setFillColor(Color::White);
 
 	int i = 0;
@@ -410,12 +428,45 @@ void Well::Player(RenderWindow& window, Event& e)
 		if (Keyboard::isKeyPressed(Keyboard::Key::Enter) && player.length() > 1)
 			break;
 		window.clear();
+		window.draw(title);
+		window.draw(bg);
 		window.draw(Border);
 		window.draw(TextBox);
 		window.draw(NameBox);
 		window.draw(input);
 		window.display();
 	}
+}
+
+void Well::GameOver(RenderWindow& window)
+{
+	Texture Gameover;
+	Gameover.loadFromFile("Textures/Gameover.jpeg");
+	Sprite end;
+	end.setScale(3, 3);
+	end.setPosition(50, 100);
+	end.setTexture(Gameover);
+	end.setColor(Color(200, 200, 200));
+
+	Font font;
+	font.loadFromFile("Fonts/Lobster_1.3.otf");
+
+	Text YourScore("YOUR SCORE : " + std::to_string(score), font, 70);
+	YourScore.setPosition(170.0f, 500.0f);
+	YourScore.setFillColor(Color(200,200,200));
+
+	Texture DinoSaur;
+	DinoSaur.loadFromFile("Textures/Ending.jpeg");
+	Sprite dino;
+	dino.setScale(1, 1);
+	dino.setPosition(500, 620);
+	dino.setTexture(DinoSaur);
+
+	window.clear();
+	window.draw(end);
+	window.draw(YourScore);
+	window.draw(dino);
+	window.display();
 }
 
 void Well::HighScore(RenderWindow& window)
@@ -428,17 +479,19 @@ void Well::HighScore(RenderWindow& window)
 	{
 		in >> Names[i];
 		in >> Scores[i];
-		std::cout << Names[i] << " " << Scores[i]<< std::endl;
 	}
 
 	int max_index = 0;
-	for (int i = 0; i < 5; i++)
+	bool flag = 0;
+	for (int i = 0; i < 5 && flag == 0 ; i++)
 	{
 		if (score >= Scores[i])
 		{
 			max_index = i;
-			break;
+			flag = 1;
 		}
+		if (flag == 0)
+			max_index = 5;
 	}
 
 	std::ofstream out("HighScore.txt");
@@ -447,13 +500,79 @@ void Well::HighScore(RenderWindow& window)
 	{
 		if (i != max_index)
 		{
-			out << Names[j] << " " << Scores[j] << std::endl;
+			out << Names[j] << std::endl << Scores[j] << std::endl;
 			j++;
 		}
 		else
 		{
-			out << player << " " << score << std::endl;
+			out << player << score << std::endl;
 		}
 	}
 	out.close();
+
+	Font font;
+	font.loadFromFile("Fonts/Lobster_1.3.otf");
+
+	Texture LeaderBoard;
+	LeaderBoard.loadFromFile("Textures/Leaderboard_bg.jpg");
+	Sprite bg;
+	bg.setScale(2.3, 1.4);
+	bg.setPosition(-10, 0);
+	bg.setTexture(LeaderBoard);
+	bg.setColor(Color(120, 120, 120));
+
+	Text Leaderboard("LEADERBOARD", font, 50);
+	Leaderboard.setPosition(260,30);
+	Leaderboard.setFillColor(Color::Cyan);
+	Leaderboard.setOutlineThickness(1);
+	Leaderboard.setOutlineColor(Color::White);
+	Leaderboard.setLetterSpacing(1);
+
+	Text Name_Header("Players",font,40);
+	Name_Header.setPosition(220, 130);
+	Name_Header.setFillColor(Color::Cyan);
+	Text Score_Header("Scores",font,40);
+	Score_Header.setPosition(520, 130);
+	Score_Header.setFillColor(Color::Cyan);
+
+	Text Name[5];
+	Text Score[5];
+
+	for (int i = 0, j=0; i < 5; i++)
+	{
+		if (i != max_index)
+		{
+			Name[i].setString(Names[j]);
+			Score[i].setString(std::to_string(Scores[j]));
+			j++;
+		}
+		else
+		{
+			Name[i].setString(player);
+			Score[i].setString(std::to_string(score));
+		}
+	}
+
+	for (int i = 0,y=230; i < 5; i++, y+=60)
+	{
+		Name[i].setFont(font);
+		Score[i].setFont(font);
+		Name[i].setCharacterSize(30);
+		Score[i].setCharacterSize(30);
+		Name[i].setPosition(230,y);
+		Score[i].setPosition(530,y);
+
+	}
+
+	window.clear();
+	window.draw(bg);
+	window.draw(Leaderboard);
+	window.draw(Name_Header);
+	window.draw(Score_Header);
+	for (int i = 0; i < 5; i++)
+	{
+		window.draw(Name[i]);
+		window.draw(Score[i]);
+	}
+	window.display();
 }
